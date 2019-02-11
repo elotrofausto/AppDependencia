@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">AppDependencia</string>
+    <string name="alertButton" translatable="false">ALERT</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_red_button" translatable="false">redButtonActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="configuration" translatable="false">Configuration</string>
+    <string name="logout" translatable="false">Log Out</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="map">Map</string>
+    <string name="events">Events</string>
+    <string name="boton_rojo">Red Button</string>
+    <string name="tv_DNI">ID of the dependent</string>
+    <string name="tv_dependent_name">Dependent\'s name</string>
+    <string name="tv_email">E-mail</string>
+    <string name="tv_number">Number</string>
+    <string name="bt_register">Register</string>
+    <string name="bt_ok">OK</string>
+    <string name="bt_cancel">Cancel</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_alerts">Alerts</string>
+    <string name="title_activity_ubication">s</string>
+    <string name="contacts_read_right_required">Permissions needed to keep working</string>
+    <string name="conf_call_red">Va a recibir una llamada</string>
+    <string name="conf_call_green">Si no puede responder, la ayuda se desplazará hacia usted</string>
+    <string name="conf_call_black">Si desea cancelar la llamada, arrastre la barra hacia el CANCELAR</string>
+    <string name="conf_call_cancel">Cancelar</string>
+    <string name="llamadaCancelada">Llamada cancelada correctamente</string>
+    <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
+</resources>

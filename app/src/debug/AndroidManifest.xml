@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.vesprada.appdependencia">
+
+    <application>
+        <activity
+            android:name="com.example.vesprada.appdependencia.Activities.RedButtonActivity"
+            android:label="@string/title_activity_red_button"></activity>
+    </application>
+</manifest>

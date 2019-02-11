@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="llamadaCancelada">Llamada cancelada correctamente</string>
+    <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
+</resources>
