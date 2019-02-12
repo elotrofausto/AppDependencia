@@ -69,7 +69,21 @@ class TareasActivity : AppCompatActivity(){
 
         setUI()
 
+        //Este metodo lo he creado para que ese fragmento de codigo este separado para que en caso de moverlo solamente copiar el metodo entero
+        cargarPrimeraTarea()
 
+    }
+
+    private fun cargarPrimeraTarea() {
+
+        var date = listaTareas.get(0).fecha
+        var df = SimpleDateFormat("d '/' MM '/' yyyy")
+        var fechaFormateada = df.format(date)
+
+        findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).descripcionCompleta
+        findViewById<TextView>(R.id.tvDate).text = fechaFormateada
+
+        findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(listaTareas.get(0).img)
     }
 
     private fun setUI() {

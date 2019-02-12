@@ -4,8 +4,8 @@
     <string name="tv_DNI">DNI del dependiente</string>
     <string name="tv_dependent_name">Nombre del dependiente</string>
     <string name="tv_email">Correo electrónico</string>
-    <string name="tv_number">Número</string>
-    <string name="bt_register">Registrar</string>
+    <string name="tv_passwd">Contraseña</string>
+    <string name="bt_login">Iniciar Sesión</string>
     <string name="bt_ok">VALE</string>
     <string name="bt_cancel">CANCELAR</string>
     <string name="title_activity_maps">Mapa</string>

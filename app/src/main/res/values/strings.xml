@@ -17,11 +17,11 @@
     <string name="map">Map</string>
     <string name="events">Events</string>
     <string name="boton_rojo">Red Button</string>
-    <string name="tv_DNI">ID of the dependent</string>
+    <string name="tv_DNI">Dependent ID</string>
     <string name="tv_dependent_name">Dependent\'s name</string>
     <string name="tv_email">E-mail</string>
-    <string name="tv_number">Number</string>
-    <string name="bt_register">Register</string>
+    <string name="tv_passwd">Password</string>
+    <string name="bt_login">Log In</string>
     <string name="bt_ok">OK</string>
     <string name="bt_cancel">Cancel</string>
     <string name="title_activity_login">Login</string>

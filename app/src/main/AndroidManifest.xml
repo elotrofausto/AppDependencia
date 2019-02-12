@@ -10,9 +10,9 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
-    <!--<uses-permission android:name="android.permission.ACTION_CALL" />-->
 
+    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
+    <!-- <uses-permission android:name="android.permission.ACTION_CALL" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -46,7 +46,8 @@
         <activity android:name=".Activities.NotificacionesActivity" />
         <activity android:name=".Activities.RedButtonActivity" />
         <activity android:name=".Activities.TareasActivity" />
-        <activity android:name=".Activities.ActivityLlamada"></activity>
+        <activity android:name=".Activities.ActivityLlamada" />
+        <activity android:name=".Activities.SplashActivity"></activity>
     </application>
 
 </manifest>

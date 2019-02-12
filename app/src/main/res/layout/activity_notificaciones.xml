@@ -7,12 +7,16 @@
     tools:context=".Activities.NotificacionesActivity">
 
     <View
+        android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="234dp"
-        android:id="@+id/view" android:visibility="visible" tools:background="@color/colorRedLight"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorRedLight" />
     <View
         android:layout_width="354dp"
         android:layout_height="198dp"
@@ -68,14 +72,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:onClick="onClickBotonRojo"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
         app:srcCompat="@drawable/btn_rojo550x550" />
 
     <android.support.design.widget.BottomNavigationView
@@ -87,5 +90,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8447972" />
 
 </android.support.constraint.ConstraintLayout>

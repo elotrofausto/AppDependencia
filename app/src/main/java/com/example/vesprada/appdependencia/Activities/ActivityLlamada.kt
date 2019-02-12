@@ -43,7 +43,7 @@ class ActivityLlamada : AppCompatActivity() {
 
         if(barra.progress!=0) {
 
-
+            Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_SHORT).show()
             finish()
         } else {
             Toast.makeText(this, getString(R.string.llamadaCancelada), Toast.LENGTH_SHORT).show()
