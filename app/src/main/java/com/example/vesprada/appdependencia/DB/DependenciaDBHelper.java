@@ -1,4 +1,4 @@
-package com.example.vesprada.appdependencia.BD;
+package com.example.vesprada.appdependencia.DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

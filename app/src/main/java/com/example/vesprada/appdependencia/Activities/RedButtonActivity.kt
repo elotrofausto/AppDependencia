@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Toast
+import com.example.vesprada.appdependencia.Background.Background
 import com.example.vesprada.appdependencia.R
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.sql.DriverManager
@@ -19,6 +20,7 @@ import java.sql.SQLException
 
 class RedButtonActivity : AppCompatActivity() {
 
+    private var bg : Background = Background();
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -58,7 +60,7 @@ class RedButtonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_red_button)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId= R.id.emergencias
-        sqlThread.start();
+        bg.start();
         //actionBar.hide()
 
     }
@@ -108,29 +110,7 @@ class RedButtonActivity : AppCompatActivity() {
 
     }
 
-    var sqlThread: Thread = object : Thread() {
-        override fun run() {
-            try {
-                Class.forName("org.postgresql.Driver")
-                // "jdbc:postgresql://IP:PUERTO/DB", "USER", "PASSWORD");
-                // Si estás utilizando el emulador de android y tenes el PostgreSQL en tu misma PC no utilizar 127.0.0.1 o localhost como IP, utilizar 10.0.2.2
-                val conn = DriverManager.getConnection(
-                        "jdbc:postgresql://10.0.2.2:9999/BDgrup2", "grup2", "Grupo-312")
-                //En el stsql se puede agregar cualquier consulta SQL deseada.
-                val stsql = "Select version()"
-                val st = conn.createStatement()
-                val rs = st.executeQuery(stsql)
-                rs.next()
-                System.out.println(rs.getString(1))
-                conn.close()
-            } catch (se: SQLException) {
-                System.out.println("oops! No se puede conectar. Error: " + se.toString())
-            } catch (e: ClassNotFoundException) {
-                println("oops! No se encuentra la clase. Error: " + e.message)
-            }
 
-        }
-    }
 
 
 }

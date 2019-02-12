@@ -1,14 +1,10 @@
-package com.example.vesprada.appdependencia.BD;
-
-import com.example.vesprada.appdependencia.AdaptersAndClasses.XAvisoModel;
-
-import java.util.Date;
+package com.example.vesprada.appdependencia.DB;
 
 public class DependenciaDBContract {
     //Common fields to all DB
 
     //Database Name
-    public static final String DB_NAME = "TODOLIST.DB";
+    public static final String DB_NAME = "DEPENDENCIA.DB";
     //Database Version
     public static final int DB_VERSION = 1;
 

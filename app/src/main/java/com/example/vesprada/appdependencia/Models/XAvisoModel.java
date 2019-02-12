@@ -1,4 +1,4 @@
-package com.example.vesprada.appdependencia.AdaptersAndClasses;
+package com.example.vesprada.appdependencia.Models;
 
 
 import java.util.Date;
