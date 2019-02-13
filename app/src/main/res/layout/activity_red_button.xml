@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/patternbg"
     tools:context=".Activities.RedButtonActivity">
 
     <Button
@@ -34,8 +35,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onClickLlamadas"
         android:background="@drawable/btn_hospital150x150"
+        android:onClick="onClickLlamadas"
         app:layout_constraintEnd_toStartOf="@+id/btnPolicia"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +49,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onClickLlamadas"
         android:background="@drawable/btn_policia150x150px"
+        android:onClick="onClickLlamadas"
         app:layout_constraintEnd_toStartOf="@+id/btnBomberos"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnHospital"
@@ -63,8 +64,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onClickLlamadas"
         android:background="@drawable/btn_bomberos150x150px"
+        android:onClick="onClickLlamadas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnPolicia"

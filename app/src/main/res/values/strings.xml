@@ -34,4 +34,7 @@
     <string name="conf_call_cancel">Cancelar</string>
     <string name="llamadaCancelada">Llamada cancelada correctamente</string>
     <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
+    <string name="tbMedic">View Medicines</string>
+    <string name="tbAll">View All</string>
+    <string name="tvEmptyList">The list is empty</string>
 </resources>

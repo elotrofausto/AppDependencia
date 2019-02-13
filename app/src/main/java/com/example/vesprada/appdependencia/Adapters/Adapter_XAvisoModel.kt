@@ -1,4 +1,4 @@
-package com.example.vesprada.appdependencia.AdaptersAndClasses
+package com.example.vesprada.appdependencia.Adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.Utils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,13 +47,8 @@ class Adapter_XAvisoModel(context: Context, avisoList: ArrayList<XAvisoModel>, r
             else -> Holder.imagen.setImageResource(R.drawable.ic_otras_citas)
         }
 
-        //Formateamos la fecha
-        var date = item.fecDesde
-                var df = SimpleDateFormat("d '/' MM '/' yyyy")
-                var fechaFormateada = ""//df.format(date)
-
         Holder.texto.text = item.name
-        Holder.hora.text = fechaFormateada
+        Holder.hora.text = Utils.trasformDate(Date(item.fecDesdeLong))
 
     }
 
@@ -65,7 +61,12 @@ class Adapter_XAvisoModel(context: Context, avisoList: ArrayList<XAvisoModel>, r
         val item = avisoList.get(itemPosition)
         Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
         selectedItemView.findViewById<TextView>(R.id.tvDescripcion).text = item.name
-        selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setImageDrawable(context.getDrawable(R.drawable.ic_otras_citas))
+        when (item.tipo){
+            "medicinas" ->  selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medicine)
+            "medico" ->  selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medico)
+            else ->  selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_otras_citas)
+        }
+        selectedItemView.findViewById<TextView>(R.id.tvDate).text = Utils.trasformDate(Date(item.fecDesdeLong))
     }
 
     class holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

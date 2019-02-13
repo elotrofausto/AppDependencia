@@ -37,8 +37,8 @@ public class DependenciaDBContract {
                 + Aviso.DNI + " TEXT NOT NULL, "
                 + Aviso.TIPO + " TEXT NOT NULL, "
                 + Aviso.NOMBRE + " TEXT NOT NULL, "
-                + Aviso.DESDE + " DATETIME NOT NULL, "
-                + Aviso.HASTA + " DATETIME NOT NULL, "
+                + Aviso.DESDE + " LONG NOT NULL, "
+                + Aviso.HASTA + " LONG NOT NULL, "
                 + Aviso.PERIODICIDAD + " TEXT"
                 + ");";
 
@@ -61,16 +61,13 @@ public class DependenciaDBContract {
         //CREATE_TABLE SQL String
         public static final String CREATE_TABLE = "CREATE TABLE " + Geo.TABLE_NAME
                 + " ("
-                + Aviso._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Aviso.DNI + " TEXT NOT NULL, "
-                + Aviso.TIPO + " TEXT NOT NULL, "
-                + Aviso.NOMBRE + " TEXT NOT NULL, "
-                + Aviso.DESDE + " DATETIME NOT NULL, "
-                + Aviso.HASTA + " DATETIME NOT NULL, "
-                + Aviso.PERIODICIDAD + " TEXT"
+                + Geo._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Geo.FECHA + " TEXT NOT NULL, "
+                + Geo.LAT + " TEXT NOT NULL, "
+                + Geo.LONG + " TEXT NOT NULL, "
                 + ");";
 
-        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + Aviso.TABLE_NAME;
+        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + Geo.TABLE_NAME;
 
         //other table definition would come here
 
