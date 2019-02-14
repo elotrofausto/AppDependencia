@@ -46,7 +46,7 @@ public class DependenciaDBManager {
     }
 
     //Select rows
-    public List<XAvisoModel> getAvisoRows(){
+    public List<XAvisoModel> getAvisoRows(String having){
         List<XAvisoModel> listaAvisos = new ArrayList<>();
         Cursor cursor = null;
         //open database to read
@@ -66,7 +66,7 @@ public class DependenciaDBManager {
                     null,
                     null,
                     null,
-                    null,
+                    having,
                     null);
         }
 

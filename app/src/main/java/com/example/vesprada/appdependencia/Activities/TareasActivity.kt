@@ -78,7 +78,9 @@ class TareasActivity : AppCompatActivity(){
         var date = dateFormat.parse(fechaDesde)
 
         db.insertAviso(XAvisoModel(0, "123456789L", "medico", "Cita con el médico", date, date, "Mañana a las 8:00 AM"))
-        listaTareas.addAll(db.avisoRows)
+        db.insertAviso(XAvisoModel(0, "123456789L", "medicinas", "Ibuprofeno 500 Mg", date, date, "Mañana a las 8:00 AM"))
+        db.insertAviso(XAvisoModel(0, "123456789L", "otros", "Visita al museo de la ciencia", date, date, "Mañana a las 8:00 AM"))
+        listaTareas.addAll(db.getAvisoRows(null))
     }
 
     private fun cargarPrimeraTarea() {
@@ -97,6 +99,8 @@ class TareasActivity : AppCompatActivity(){
         adapter = Adapter_XAvisoModel(this, listaTareas, recyclerView, findViewById(R.id.lyAvisos))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+
     }
 
     fun onClickBotonRojo(v: View){
