@@ -49,7 +49,7 @@ class RedButtonActivity : AppCompatActivity() {
             R.id.configuracion -> {
                 var intent = Intent(this, ConfiguracionActivity::class.java)
                 startActivity(intent)
-                finish()
+                //finish()
             }
         }
         false
@@ -91,9 +91,21 @@ class RedButtonActivity : AppCompatActivity() {
 
         when(v.id){
 
-            R.id.btnHospital -> {Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")}
-            R.id.btnBomberos -> {Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")}
-            R.id.btnPolicia -> {Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")}
+            R.id.btnHospital -> {
+                var intent = Intent(this, ActivityLlamada::class.java);
+                Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
+                startActivity(intent)
+            }
+            R.id.btnBomberos -> {
+                var intent = Intent(this, ActivityLlamada::class.java);
+                Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
+                startActivity(intent)
+            }
+            R.id.btnPolicia -> {
+                var intent = Intent(this, ActivityLlamada::class.java);
+                Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
+                startActivity(intent)
+            }
         }
 
     }

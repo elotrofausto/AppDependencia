@@ -24,9 +24,13 @@ import kotlinx.android.synthetic.main.content_configuracion.*
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var btnSave : Button
+    lateinit var btnCancel : Button
     lateinit var etNombre: EditText
     lateinit var etPasswd: EditText
     lateinit var ipAsistente: EditText
+    lateinit var ultimoNombre : String
+    lateinit var ultimaPasswd : String
+    lateinit var ultimaIpAsistente : String
     var editando: Boolean = false
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -87,10 +91,15 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         nav_view.setNavigationItemSelectedListener(this)
 
         setUI()
+
+        if(savedInstanceState!=null){
+            restoreUI(savedInstanceState)
+        }
     }
 
     private fun setUI() {
         btnSave = findViewById(R.id.btn_save)
+        btnCancel = findViewById(R.id.btn_cancelarCambios)
         etNombre = findViewById(R.id.ed_nombreDependiente)
         etPasswd = findViewById(R.id.ed_passwdDependiente)
         ipAsistente = findViewById(R.id.ed_ipAsistente)
@@ -99,28 +108,89 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         cargarDatosIniciales()
     }
 
+    private fun restoreUI(bundle: Bundle){
+        etNombre.setText(bundle.getString("etNombreText"))
+        etPasswd.setText(bundle.getString("etPasswdText"))
+        ipAsistente.setText(bundle.getString("ipAsistenteText"))
+
+        etNombre.isEnabled=bundle.getBoolean("etNombreEnable")
+        etPasswd.isEnabled=bundle.getBoolean("etPasswdEnable")
+        ipAsistente.isEnabled=bundle.getBoolean("ipAsistenteEnable")
+
+        ultimoNombre = bundle.getString("ultimoNombre")
+        ultimaPasswd = bundle.getString("ultimaPasswd")
+        ultimaIpAsistente = bundle.getString("ultimaIpAsistente")
+
+        btnSave.visibility=bundle.getInt("botonesVisibles")
+        btnCancel.visibility=bundle.getInt("botonesVisibles")
+
+    }
+
     private fun cargarDatosIniciales() {
-        etNombre.setText("Nombre De Ejemplo", TextView.BufferType.EDITABLE)
-        etPasswd.setText("Contraseña De Ejemplo", TextView.BufferType.EDITABLE)
-        ipAsistente.setText("none", TextView.BufferType.EDITABLE)
+
+        //rellenar los campos con los de la base de datos
+        etNombre.setText("Nombre De Ejemplo")
+        etPasswd.setText("Contraseña De Ejemplo")
+        ipAsistente.setText("none")
+
+        ultimoNombre=etNombre.text.toString()
+        ultimaPasswd=etPasswd.text.toString()
+        ultimaIpAsistente=ipAsistente.text.toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+
+        outState.putBoolean("etNombreEnable", etNombre.isEnabled)
+        outState.putBoolean("etPasswdEnable", etPasswd.isEnabled)
+        outState.putBoolean("ipAsistenteEnable", ipAsistente.isEnabled)
+
+        outState.putInt("botonesVisibles", btnSave.visibility)
+
+        outState.putString("etNombreText", etNombre.text.toString())
+        outState.putString("etPasswdText",etPasswd.text.toString())
+        outState.putString("ipAsistenteText", ipAsistente.text.toString())
+
+        outState.putString("ultimoNombre", ultimoNombre)
+        outState.putString("ultimaPasswd", ultimaPasswd)
+        outState.putString("ultimaIpAsistente",ultimaIpAsistente)
+
+        super.onSaveInstanceState(outState)
     }
 
     //Guarda los cambios
     fun GuardarOnClick(v: View){
 
         //Si se esta editando editando la ip del asistente...
-        if(ed_ipAsistente.isEnabled){
-            desacivarCampos()
+        if(etNombre.isEnabled){
+            //Aqui habría que poner que guarde los datos correspondientes
+            ultimoNombre=etNombre.text.toString()
+            ultimaPasswd=etPasswd.text.toString()
+            println("...")
         }
         //Si se esta editando el nombre y contraseña...
         else {
-            desacivarCampos()
+            //Aqui habría que poner que guarde los datos correspondientes
+            ultimaIpAsistente=ipAsistente.text.toString()
+
         }
+
+        desacivarCampos()
+
+    }
+
+    fun CancelarOnClick(v: View){
+
+        etNombre.setText(ultimoNombre)
+        etPasswd.setText(ultimaPasswd)
+        ipAsistente.setText(ultimaIpAsistente)
+
+        desacivarCampos()
 
     }
 
     private fun desacivarCampos() {
         btnSave.visibility=View.GONE
+        btnCancel.visibility=View.GONE
         ed_nombreDependiente.isEnabled=false
         ed_passwdDependiente.isEnabled=false
         ipAsistente.isEnabled=false

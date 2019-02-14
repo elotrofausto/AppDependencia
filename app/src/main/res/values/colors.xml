@@ -8,4 +8,8 @@
     <color name="colorRedLight">#9aa6282f</color>
     <color name="ic_launcher_background">#ffffff</color>
     <color name="colorGrayLight">#a3a0a0</color>
+    <color name="task_selected">#d3bababa</color>
+    <color name="sample">#00bababa</color>
+    <color name="black_as_my_soul">#000000</color>
+    <color name="grey">#646464</color>
 </resources>

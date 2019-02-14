@@ -28,12 +28,12 @@
     <string name="title_activity_alerts">Alerts</string>
     <string name="title_activity_ubication">s</string>
     <string name="contacts_read_right_required">Permissions needed to keep working</string>
-    <string name="conf_call_red">Va a recibir una llamada</string>
-    <string name="conf_call_green">Si no puede responder, la ayuda se desplazará hacia usted</string>
-    <string name="conf_call_black">Si desea cancelar la llamada, arrastre la barra hacia el CANCELAR</string>
-    <string name="conf_call_cancel">Cancelar</string>
-    <string name="llamadaCancelada">Llamada cancelada correctamente</string>
-    <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
+    <string name="conf_call_red">You are going to receive a call</string>
+    <string name="conf_call_green">If you can\'t reply back, AID will be directed towards you</string>
+    <string name="conf_call_black">If you wish to cancel the call, drag the bar until it reaches CANCEL</string>
+    <string name="conf_call_cancel">Cancel</string>
+    <string name="llamadaCancelada">Call canceled correctly</string>
+    <string name="llamandoEmergencias">Making contacti with th emergency services</string>
     <string name="tbMedic">View Medicines</string>
     <string name="tbAll">View All</string>
     <string name="tvEmptyList">The list is empty</string>
@@ -46,11 +46,15 @@
     <string name="informe_medicamentos">Print Medicines Report</string>
     <string name="informe_tareas_varias">Print General Tasks Report</string>
     <string name="ya_esta_editando">You are still editing</string>
-    <string name="introducir_userpasswd_hint">User Password</string>
+    <string name="introducir_userpasswd_hint">Password</string>
     <string name="titulo_dependiente">Insert Dependent Password</string>
     <string name="continuar">Continue</string>
     <string name="correct_password">Correct Password</string>
     <string name="incorrect_password">Incorrect Password</string>
     <string name="titulo_asistente">Insert Assistent Password</string>
+    <string name="app_dependencia_nombre">App Dependencia</string>
+    <string name="nombre_grupo">Group 2</string>
+    <string name="intervalos">Sends GPS information each</string>
+    <string name="minutes">minutes</string>
 
 </resources>

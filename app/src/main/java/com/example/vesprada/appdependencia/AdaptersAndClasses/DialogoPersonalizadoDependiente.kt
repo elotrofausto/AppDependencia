@@ -53,6 +53,7 @@ class DialogoPersonalizadoDependiente : DialogFragment() {
                         activity!!.findViewById<View>(R.id.ed_passwdDependiente).isEnabled = true
                     }
                     activity!!.findViewById<View>(R.id.btn_save).visibility = View.VISIBLE
+                    activity!!.findViewById<View>(R.id.btn_cancelarCambios).visibility = View.VISIBLE
                     dismiss()
                 } else {
                     Toast.makeText(activity, getString(R.string.incorrect_password), Toast.LENGTH_LONG).show()
