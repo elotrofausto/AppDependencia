@@ -38,6 +38,11 @@ class NotificacionesActivity : AppCompatActivity() {
                 finish()
 
             }
+            R.id.configuracion -> {
+                var intent = Intent(this, ConfiguracionActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         false
     }

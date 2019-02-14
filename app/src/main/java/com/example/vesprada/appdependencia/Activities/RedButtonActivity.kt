@@ -46,6 +46,11 @@ class RedButtonActivity : AppCompatActivity() {
                 startActivity(intent)
                 //finish()
             }
+            R.id.configuracion -> {
+                var intent = Intent(this, ConfiguracionActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         false
     }

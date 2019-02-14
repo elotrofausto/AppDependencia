@@ -47,7 +47,11 @@
         <activity android:name=".Activities.RedButtonActivity" />
         <activity android:name=".Activities.TareasActivity" />
         <activity android:name=".Activities.ActivityLlamada" />
-        <activity android:name=".Activities.SplashActivity"></activity>
+        <activity android:name=".Activities.SplashActivity" />
+        <activity
+            android:name=".Activities.ConfiguracionActivity"
+            android:label="@string/title_activity_configuracion"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
