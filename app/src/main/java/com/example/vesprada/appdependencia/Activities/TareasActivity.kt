@@ -10,7 +10,9 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import android.widget.ToggleButton
 import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
+import com.example.vesprada.appdependencia.DB.DependenciaDBContract
 import com.example.vesprada.appdependencia.DB.DependenciaDBManager
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
@@ -23,37 +25,10 @@ import java.util.*
 class TareasActivity : AppCompatActivity(){
 
     var listaTareas : ArrayList<XAvisoModel> = ArrayList()
+    lateinit var db : DependenciaDBManager
     lateinit var recyclerView : RecyclerView
     lateinit var adapter : Adapter_XAvisoModel
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.emergencias -> {
-                var intent = Intent(this, RedButtonActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            R.id.notificaciones -> {
-                var intent = Intent(this, NotificacionesActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            R.id.eventos -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.mapa -> {
-                var intent = Intent(this, MapsActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            R.id.configuracion -> {
-                var intent = Intent(this, ConfiguracionActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +46,8 @@ class TareasActivity : AppCompatActivity(){
     }
 
     private fun initDB() {
-        var db = DependenciaDBManager(this.applicationContext)
 
+        db = DependenciaDBManager(this.applicationContext)
         var fechaDesde = "2019-12-01"
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         var date = dateFormat.parse(fechaDesde)
@@ -109,7 +84,49 @@ class TareasActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
+    public fun onToggleClick(v: View)
+    {
+        if (findViewById<ToggleButton>(R.id.toggleButton).isChecked){
+            listaTareas.removeAll(listaTareas)
+            listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.TIPO + " = 'medicinas'"))
+        }else{
+            listaTareas.removeAll(listaTareas)
+            listaTareas.addAll(db.getAvisoRows(null))
+        }
+        adapter.notifyDataSetChanged()
+        cargarPrimeraTarea()
+    }
+
     override fun onResume() {
         super.onResume()
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.emergencias -> {
+                var intent = Intent(this, RedButtonActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.notificaciones -> {
+                var intent = Intent(this, NotificacionesActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.eventos -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.mapa -> {
+                var intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.configuracion -> {
+                var intent = Intent(this, ConfiguracionActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        false
     }
 }

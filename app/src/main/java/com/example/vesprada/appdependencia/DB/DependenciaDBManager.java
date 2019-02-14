@@ -65,7 +65,7 @@ public class DependenciaDBManager {
                     projection,
                     null,
                     null,
-                    null,
+                    DependenciaDBContract.Aviso._ID,
                     having,
                     null);
         }
