@@ -6,10 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Background extends Thread{
+public class BackgroundLogin extends Thread{
 
-    public Background(){
+    private static Boolean correctLogin = false;
+    private String user;
+    private String pass;
 
+
+    public BackgroundLogin(String user, String pass){
+        this.user = user;
+        this.pass = pass;
     }
 
         public void run() {
@@ -21,18 +27,24 @@ public class Background extends Thread{
                         //"jdbc:postgresql://149.202.8.235:5432/BDgrup2", "grup2", "Grupo-312");
                         "jdbc:postgresql://10.0.2.2:9999/BDgrup2", "grup2", "Grupo-312");
                 //En el stsql se puede agregar cualquier consulta SQL deseada.
-                String stsql = "Select version()";
+                String stsql = "SELECT * FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '" + user + "') AND password ='" + pass + "'";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(stsql);
-                rs.next();
-                System.out.println( rs.getString(1) );
+                if (rs != null){
+                    correctLogin = true;
+                }
                 conn.close();
             } catch (SQLException se) {
                 System.out.println("oops! No se puede conectar. Error: " + se.toString());
             } catch (ClassNotFoundException e) {
                 System.out.println("oops! No se encuentra la clase. Error: " + e.getMessage());
             }
+
         }
 
+
+    public Boolean getCorrectLogin() {
+        return correctLogin;
     }
+}
 

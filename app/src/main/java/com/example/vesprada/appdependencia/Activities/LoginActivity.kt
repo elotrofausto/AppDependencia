@@ -6,14 +6,20 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import com.example.vesprada.appdependencia.Background.AsyncTasks
+import com.example.vesprada.appdependencia.Background.BackgroundLogin
 import com.example.vesprada.appdependencia.R
 
 class LoginActivity : AppCompatActivity() {
 
-    val MYPREFS = "MyPrefs"
+    private val MYPREFS = "MyPrefs"
+    private val DNI = "dni"
+    private val PASS = "passwd"
+    private val NONE = "none"
 
-    lateinit var dni: EditText
-    lateinit var passwd : EditText
+    private lateinit var dni: EditText
+    private lateinit var passwd : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +34,9 @@ class LoginActivity : AppCompatActivity() {
 
         val myPreferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
 
-        if(!myPreferences.getString("dni", "none").equals("none") && !myPreferences.getString("passwd", "none").equals("none")){
-            lanzarSplashActivity()
+        if(!myPreferences.getString(DNI, NONE).equals(NONE) && !myPreferences.getString(PASS, NONE).equals(NONE)){
+            var bgLogin = BackgroundLogin(myPreferences.getString(DNI, NONE), myPreferences.getString(PASS, NONE))
+            bgLogin.start()
         }
 
     }
@@ -41,18 +48,16 @@ class LoginActivity : AppCompatActivity() {
 
     fun clickEvent(v : View){
 
-        //Falta una comprobación en la base de datos de si el usuario y contraseña es incorrecto o no
-
         val myPreferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
-
         val editor = myPreferences.edit()
 
-        editor.putString("dni", dni.text.toString())
-        editor.putString("passwd", passwd.text.toString())
+        editor.putString(DNI, dni.text.toString())
+        editor.putString(PASS, passwd.text.toString())
 
-        editor.commit()
+        var loginTask: AsyncTasks.LoginTask = AsyncTasks.LoginTask(dni.text.toString(), passwd.text.toString())
+        loginTask.execute()
+        //TODO pasar context y load a asynctask
 
-        lanzarSplashActivity()
     }
 
     fun lanzarSplashActivity(){

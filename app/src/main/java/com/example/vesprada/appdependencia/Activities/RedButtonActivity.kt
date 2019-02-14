@@ -12,15 +12,10 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Toast
-import com.example.vesprada.appdependencia.Background.Background
 import com.example.vesprada.appdependencia.R
 import kotlinx.android.synthetic.main.activity_red_button.*
-import java.sql.DriverManager
-import java.sql.SQLException
 
 class RedButtonActivity : AppCompatActivity() {
-
-    private var bg : Background = Background();
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -65,7 +60,6 @@ class RedButtonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_red_button)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId= R.id.emergencias
-        bg.start();
         //actionBar.hide()
 
     }

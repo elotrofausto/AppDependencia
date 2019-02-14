@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ToggleButton"
+        android:onClick="onToggleClick"
         android:textOff="@string/tbMedic"
         android:textOn="@string/tbAll"
         app:layout_constraintBottom_toTopOf="@+id/btEmergencyBig"
