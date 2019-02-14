@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_mod_datos"
+            android:title="@string/modificar_nombre_y_passwd" />
+        <item
+            android:id="@+id/nav_mod_ip_asistente"
+            android:title="@string/cambiar_asistente" />
+    </group>
+
+    <item android:title="@string/informes">
+        <menu>
+            <item
+                android:id="@+id/nav_informe_medicamentos"
+                android:icon="@drawable/ic_pdf"
+                android:title="@string/informe_medicamentos" />
+            <item
+                android:id="@+id/nav_informe_otras_tareas"
+                android:icon="@drawable/ic_pdf"
+                android:title="@string/informe_tareas_varias" />
+        </menu>
+    </item>
+
+</menu>
