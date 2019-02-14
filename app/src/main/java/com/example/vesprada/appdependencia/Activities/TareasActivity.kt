@@ -75,7 +75,6 @@ class TareasActivity : AppCompatActivity(){
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
     }
 
     fun onClickBotonRojo(v: View){
