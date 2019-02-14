@@ -37,8 +37,8 @@ public class DependenciaDBManager {
             contentValue.put(DependenciaDBContract.Aviso.DNI, aviso.getDependienteDNI());
             contentValue.put(DependenciaDBContract.Aviso.TIPO, aviso.getTipo());
             contentValue.put(DependenciaDBContract.Aviso.NOMBRE, aviso.getName());
-            contentValue.put(DependenciaDBContract.Aviso.DESDE, String.valueOf(aviso.getFecDesde()));
-            contentValue.put(DependenciaDBContract.Aviso.HASTA, String.valueOf(aviso.getFecHasta()));
+            contentValue.put(DependenciaDBContract.Aviso.DESDE, aviso.getFecDesdeLong());
+            contentValue.put(DependenciaDBContract.Aviso.HASTA, aviso.getFecHastaLong());
             contentValue.put(DependenciaDBContract.Aviso.PERIODICIDAD, aviso.getPeriodicidad());
 
             sqLiteDatabase.insert(DependenciaDBContract.Aviso.TABLE_NAME, null, contentValue);
@@ -73,15 +73,10 @@ public class DependenciaDBManager {
         if (cursor != null && cursor.moveToFirst()){
             do {
                 Date desde = null, hasta = null;
-                String sDesde = cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.DESDE));
-                String sHasta = cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.HASTA));
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                try {
-                    desde = dateFormat.parse(sDesde);
-                    hasta = dateFormat.parse(sHasta);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                Long sDesde = cursor.getLong(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.DESDE));
+                Long sHasta = cursor.getLong(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.HASTA));
+                desde = new Date(sDesde);
+                hasta = new Date(sHasta);
 
                 listaAvisos.add(new XAvisoModel(cursor.getInt(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso._ID)),
                         cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.DNI)),

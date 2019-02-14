@@ -18,7 +18,8 @@ public class Background extends Thread{
                 // "jdbc:postgresql://IP:PUERTO/DB", "USER", "PASSWORD");
                 // Si estás utilizando el emulador de android y tenes el PostgreSQL en tu misma PC no utilizar 127.0.0.1 o localhost como IP, utilizar 10.0.2.2
                 Connection conn = DriverManager.getConnection(
-                        "jdbc:postgresql://149.202.8.235:5432/BDgrup2", "grup2", "Grupo-312");
+                        //"jdbc:postgresql://149.202.8.235:5432/BDgrup2", "grup2", "Grupo-312");
+                        "jdbc:postgresql://10.0.2.2:9999/BDgrup2", "grup2", "Grupo-312");
                 //En el stsql se puede agregar cualquier consulta SQL deseada.
                 String stsql = "Select version()";
                 Statement st = conn.createStatement();

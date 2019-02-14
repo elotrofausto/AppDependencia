@@ -1,6 +1,7 @@
 package com.example.vesprada.appdependencia.Models;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class XAvisoModel  implements java.io.Serializable {
@@ -61,8 +62,13 @@ public class XAvisoModel  implements java.io.Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public Date getFecDesde() {
+    public Date getFecDesde()
+    {
         return this.fecDesde;
+    }
+
+    public Long getFecDesdeLong(){
+        return fecDesde.getTime();
     }
 
     public void setFecDesde(Date fecDesde) {
@@ -70,6 +76,10 @@ public class XAvisoModel  implements java.io.Serializable {
     }
     public Date getFecHasta() {
         return this.fecHasta;
+    }
+
+    public Long getFecHastaLong(){
+        return fecHasta.getTime();
     }
 
     public void setFecHasta(Date fecHasta) {
