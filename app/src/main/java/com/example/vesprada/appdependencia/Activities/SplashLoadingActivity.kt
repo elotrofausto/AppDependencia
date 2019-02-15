@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.example.vesprada.appdependencia.R
 
-class SplashActivity : AppCompatActivity() {
+class SplashLoadingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

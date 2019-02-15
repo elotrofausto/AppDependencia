@@ -1,13 +1,12 @@
 package com.example.vesprada.appdependencia.Background;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
-import com.example.vesprada.appdependencia.Activities.SplashActivity;
+import com.example.vesprada.appdependencia.Activities.SplashLoadingActivity;
 import com.example.vesprada.appdependencia.R;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -97,7 +96,7 @@ public class AsyncTasks {
         }
 
         private void lanzarSplashActivity(){
-            Intent intent = new Intent(context, SplashActivity.class);
+            Intent intent = new Intent(context, SplashLoadingActivity.class);
             context.startActivity(intent);
         }
 
