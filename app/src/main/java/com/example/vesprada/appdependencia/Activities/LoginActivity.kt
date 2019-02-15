@@ -111,7 +111,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-
         override fun onCancelled() {
             super.onCancelled()
             Log.e("onCancelled", "ASYNCTASK " + this.javaClass.simpleName + ": I've been canceled and ready to GC clean")
