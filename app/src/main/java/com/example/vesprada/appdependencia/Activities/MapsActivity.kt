@@ -67,7 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
 
-        val currentPlace= LatLng(38.691450,-0.496278)
+        val currentPlace = LatLng(38.691450,-0.496278)
         val zoom=15.0F
 
         enableMyLocation()
