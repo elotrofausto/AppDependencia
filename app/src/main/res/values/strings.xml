@@ -56,6 +56,8 @@
     <string name="nombre_grupo">Group 2</string>
     <string name="intervalos">Sends GPS information each</string>
     <string name="minutes">minutes</string>
+    <string name="MedicinesDocument">MedicinesListReport</string>
+    <string name="OtherTasksDocument">TasksListReport</string>
     <string name="dropped_pin">Place Selected</string>
     <string name="normal_map">Normal</string>
     <string name="hybrid_map">Hybrid</string>
