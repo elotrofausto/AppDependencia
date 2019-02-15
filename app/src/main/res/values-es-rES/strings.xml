@@ -45,4 +45,6 @@
     <string name="tbMedic">Ver Medicinas</string>
     <string name="tbAll">Ver todo</string>
     <string name="tvEmptyList">La lista está vacía</string>
+    <string name="MedicinesDocument">InformeMedicamentos</string>
+    <string name="OtherTasksDocument">InformeOtrasTareas</string>
 </resources>

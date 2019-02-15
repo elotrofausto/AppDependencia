@@ -1,6 +1,7 @@
 package com.example.vesprada.appdependencia.Activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -17,11 +18,17 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.vesprada.appdependencia.AdaptersAndClasses.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
 import kotlinx.android.synthetic.main.content_configuracion.*
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private val MYPREFS = "MyPrefs"
+    private val DNI = "dni"
+
+    val sharedPreferences = getSharedPreferences(MYPREFS, MODE_PRIVATE)
 
     lateinit var btnSave : Button
     lateinit var btnCancel : Button
@@ -165,7 +172,6 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             //Aqui habría que poner que guarde los datos correspondientes
             ultimoNombre=etNombre.text.toString()
             ultimaPasswd=etPasswd.text.toString()
-            println("...")
         }
         //Si se esta editando el nombre y contraseña...
         else {
@@ -259,9 +265,13 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_informe_medicamentos->{
                 Toast.makeText(this, "Imprimendo informe medicamentos", Toast.LENGTH_LONG).show()
+
+                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.MedicinesDocument), 1, sharedPreferences.getString(DNI, "none"))
             }
             R.id.nav_informe_otras_tareas->{
                 Toast.makeText(this, "Imprimendo informe de otras tareas", Toast.LENGTH_LONG).show()
+
+                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.OtherTasksDocument), 2, sharedPreferences.getString(DNI, "none"))
             }
         }
 

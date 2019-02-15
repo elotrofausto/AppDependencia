@@ -39,7 +39,7 @@
     <string name="tvEmptyList">The list is empty</string>
     <string name="title_activity_configuracion" translatable="false">ConfiguracionActivity</string>
     <string name="nombreDependiente">Name</string>
-    <string name="ip_asistente">Asistente</string>
+    <string name="ip_asistente">Assistent</string>
     <string name="informes">Reports</string>
     <string name="modificar_nombre_y_passwd">Change Name and Password</string>
     <string name="cambiar_asistente">Change Assistent</string>
@@ -56,5 +56,7 @@
     <string name="nombre_grupo">Group 2</string>
     <string name="intervalos">Sends GPS information each</string>
     <string name="minutes">minutes</string>
+    <string name="MedicinesDocument">MedicinesListReport</string>
+    <string name="OtherTasksDocument">TasksListReport</string>
 
 </resources>
