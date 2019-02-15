@@ -21,10 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Activities.LoginActivity">
+        <activity android:name=".Activities.SplashInitActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,7 +46,8 @@
         <activity android:name=".Activities.RedButtonActivity" />
         <activity android:name=".Activities.TareasActivity" />
         <activity android:name=".Activities.ActivityLlamada" />
-        <activity android:name=".Activities.SplashActivity" />
+        <activity android:name=".Activities.SplashLoadingActivity" />
+        <activity android:name=".Activities.LoginActivity" />
         <activity
             android:name=".Activities.ConfiguracionActivity"
             android:label="@string/title_activity_configuracion"
