@@ -1,36 +1,24 @@
 package com.example.vesprada.appdependencia.Activities
 
+//import com.google.android.gms.location.places.Places
 import android.Manifest
-import android.content.res.Resources
-import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageButton
-
 import com.example.vesprada.appdependencia.R
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import android.view.MenuInflater
-import android.view.MenuItem
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.Marker
 import java.util.*
-import com.google.android.gms.maps.model.PointOfInterest
-import android.content.res.Resources.NotFoundException
-import android.support.v4.app.FragmentActivity
-import android.util.Log
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import android.Manifest.permission
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Context
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.location.Location
-import android.support.v4.content.ContextCompat
-//import com.google.android.gms.location.places.Places
-import kotlin.collections.ArrayList
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -65,7 +53,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
 
         val currentPlace = LatLng(38.691450,-0.496278)
         val zoom=15.0F
