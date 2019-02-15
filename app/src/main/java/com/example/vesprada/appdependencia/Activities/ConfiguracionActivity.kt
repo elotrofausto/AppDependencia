@@ -1,7 +1,10 @@
 package com.example.vesprada.appdependencia.Activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -12,23 +15,25 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.vesprada.appdependencia.AdaptersAndClasses.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
 import kotlinx.android.synthetic.main.content_configuracion.*
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import java.sql.Connection
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val MYPREFS = "MyPrefs"
     private val DNI = "dni"
 
-    val sharedPreferences = getSharedPreferences(MYPREFS, MODE_PRIVATE)
+    lateinit var sharedPreferences: SharedPreferences
 
     lateinit var btnSave : Button
     lateinit var btnCancel : Button
@@ -39,6 +44,12 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     lateinit var ultimaPasswd : String
     lateinit var ultimaIpAsistente : String
     var editando: Boolean = false
+
+    private lateinit var confAsyncTask: ConfigTask
+
+    companion object {
+        var ConfigPb: ProgressBar? = null
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -99,6 +110,8 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         setUI()
 
+        sharedPreferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
+
         if(savedInstanceState!=null){
             restoreUI(savedInstanceState)
         }
@@ -110,6 +123,7 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         etNombre = findViewById(R.id.ed_nombreDependiente)
         etPasswd = findViewById(R.id.ed_passwdDependiente)
         ipAsistente = findViewById(R.id.ed_ipAsistente)
+        ConfigPb = findViewById(R.id.pbConf)
 
         //Carga el nombre, contraseña e ip del asistente que tenia previamente
         cargarDatosIniciales()
@@ -266,16 +280,74 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_informe_medicamentos->{
                 Toast.makeText(this, "Imprimendo informe medicamentos", Toast.LENGTH_LONG).show()
 
-                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.MedicinesDocument), 1, sharedPreferences.getString(DNI, "none"))
+                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.MedicinesDocument), 1, sharedPreferences.getString(DNI, "none"), this)
+                confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+
             }
             R.id.nav_informe_otras_tareas->{
                 Toast.makeText(this, "Imprimendo informe de otras tareas", Toast.LENGTH_LONG).show()
 
-                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.OtherTasksDocument), 2, sharedPreferences.getString(DNI, "none"))
+                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.OtherTasksDocument), 2, sharedPreferences.getString(DNI, "none"), this)
+                confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    //static class for AsyncTask
+    //----------------------------------------------------------------------------------------------
+    class ConfigTask(private val url: URL, private val method: String, private val fos: OutputStream, private val context: Context) : AsyncTask<Void, Void, Boolean>() {
+
+        public var correctWrite: Boolean = false
+        lateinit var conection : HttpURLConnection
+        var responseCode = 0
+
+        init {
+            this.correctWrite = false
+        }
+
+        //Runs in background Thread
+        override fun doInBackground(vararg params: Void): Boolean? {
+
+            conection = url.openConnection() as HttpURLConnection
+            conection.setRequestMethod(method)
+            responseCode = conection.getResponseCode()
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val `is` = conection.getInputStream()
+                while (`is`.available() > 0) {
+                    fos.write(`is`.read())
+                    fos.flush()
+                }
+            }
+
+            return correctWrite
+
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            ConfigPb!!.visibility = View.VISIBLE
+        }
+
+        override fun onPostExecute(result: Boolean?) {
+            ConfigPb!!.visibility = View.INVISIBLE
+            if (result!!) {
+                Toast.makeText(context, "Exito en la descarga del informe", Toast.LENGTH_LONG).show()
+                //lanzarSplashActivity()
+                //(context as Activity).finish()
+            } else {
+                Toast.makeText(context, "Error en la descarga del informe", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        override fun onCancelled() {
+            super.onCancelled()
+            Log.e("onCancelled", "ASYNCTASK " + this.javaClass.simpleName + ": I've been canceled and ready to GC clean")
+        }
+
     }
 }

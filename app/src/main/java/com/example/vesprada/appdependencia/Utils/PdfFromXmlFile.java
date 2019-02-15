@@ -1,6 +1,9 @@
 package com.example.vesprada.appdependencia.Utils;
 
 
+import android.content.Context;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,11 +31,14 @@ public class PdfFromXmlFile {
     private String DependentDNI;
     private URL url;
     private HttpURLConnection conection;
+    private Context context;
+    private OutputStream fos;
 
-    public PdfFromXmlFile (String file, int document, String dni) throws IOException {
+    public PdfFromXmlFile (String file, int document, String dni, Context context) throws IOException {
 
         FILE = file;
         DependentDNI = dni;
+        this.context = context;
 
         if(document==1){
             DOC = "InformeMedicamentoList";
@@ -45,14 +51,14 @@ public class PdfFromXmlFile {
     }
 
     private void setUI() throws IOException {
-        OutputStream fos;
-        int responseCode;
-        File pdfFile = new File(FILE + ESPANSE);
 
+        int responseCode;
+        File pdfFile = new File(context.getFilesDir(),FILE + ESPANSE);
+        Log.i("RUTA PDF-", context.getFilesDir().toString() + "/"+FILE +ESPANSE);
         fos = new FileOutputStream(pdfFile);
         url = new URL(INIT + HOST + PORT + REPOSITORY + DOC + ESPANSE + "?" + USER + "&" + PASS + "&" + DNI + DependentDNI);
 
-        conection = (HttpURLConnection) url.openConnection();
+        /*conection = (HttpURLConnection) url.openConnection();
         conection.setRequestMethod(METHOD);
         responseCode =  conection.getResponseCode();
 
@@ -62,9 +68,22 @@ public class PdfFromXmlFile {
                 fos.write(is.read());
                 fos.flush();
             }
-        }
+        }*/
 
     }
+
+    public OutputStream getFos(){
+        return fos;
+    }
+
+    public URL getUrl(){
+        return url;
+    }
+
+    public String getMETHOD(){
+        return METHOD;
+    }
+
 
 
 }
