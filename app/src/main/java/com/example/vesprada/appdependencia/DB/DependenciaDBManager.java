@@ -40,8 +40,22 @@ public class DependenciaDBManager {
             contentValue.put(DependenciaDBContract.Aviso.DESDE, aviso.getFecDesdeLong());
             contentValue.put(DependenciaDBContract.Aviso.HASTA, aviso.getFecHastaLong());
             contentValue.put(DependenciaDBContract.Aviso.PERIODICIDAD, aviso.getPeriodicidad());
+            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 0); //Siempre están en finalizado = falss al insertar
 
             sqLiteDatabase.insert(DependenciaDBContract.Aviso.TABLE_NAME, null, contentValue);
+        }
+    }
+
+    //Update finished status
+    public void setAvisoFinished(Integer id){
+        //open database to read and write
+        SQLiteDatabase sqLiteDatabase = todoListDBHelper.getWritableDatabase();
+
+        if (sqLiteDatabase != null){
+            ContentValues contentValue = new ContentValues();
+            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 1); // finalizado = true al actualizar
+
+            sqLiteDatabase.update(DependenciaDBContract.Aviso.TABLE_NAME,  contentValue, DependenciaDBContract.Aviso._ID + " = " + id,null);
         }
     }
 
@@ -59,7 +73,8 @@ public class DependenciaDBManager {
                     DependenciaDBContract.Aviso.NOMBRE,
                     DependenciaDBContract.Aviso.DESDE,
                     DependenciaDBContract.Aviso.HASTA,
-                    DependenciaDBContract.Aviso.PERIODICIDAD};
+                    DependenciaDBContract.Aviso.PERIODICIDAD,
+                    DependenciaDBContract.Aviso.FINALIZADO};
 
             cursor = sqLiteDatabase.query(DependenciaDBContract.Aviso.TABLE_NAME,
                     projection,

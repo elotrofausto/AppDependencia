@@ -1,6 +1,5 @@
 package com.example.vesprada.appdependencia.Activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -22,11 +21,9 @@ import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
 import kotlinx.android.synthetic.main.content_configuracion.*
-import java.io.FileOutputStream
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import java.sql.Connection
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -69,11 +66,11 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.eventos -> {
 
-                var intent = Intent(this, TareasActivity::class.java)
+                var intent = Intent(this, HistorialActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            R.id.mapa -> {
+            R.id.googlemap -> {
 
                 var intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)

@@ -19,7 +19,6 @@ public class XAvisoModel  implements java.io.Serializable {
 
     }
 
-
     public XAvisoModel(int id, String dependienteDNI, String tipo, String name, Date fecDesde, Date fecHasta, String periodicidad) {
         this.id = id;
         this.dependienteDNI = dependienteDNI;

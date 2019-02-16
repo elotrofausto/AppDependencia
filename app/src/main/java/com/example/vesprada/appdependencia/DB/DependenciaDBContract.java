@@ -28,6 +28,7 @@ public class DependenciaDBContract {
         public static final String DESDE = "desde";
         public static final String HASTA = "hasta";
         public static final String PERIODICIDAD = "periodicidad";
+        public static final String FINALIZADO = "finalizado";
 
 
         //CREATE_TABLE SQL String
@@ -39,7 +40,8 @@ public class DependenciaDBContract {
                 + Aviso.NOMBRE + " TEXT NOT NULL, "
                 + Aviso.DESDE + " LONG NOT NULL, "
                 + Aviso.HASTA + " LONG NOT NULL, "
-                + Aviso.PERIODICIDAD + " TEXT"
+                + Aviso.PERIODICIDAD + " TEXT, "
+                + Aviso.FINALIZADO + " INTEGER"
                 + ");";
 
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + Aviso.TABLE_NAME;

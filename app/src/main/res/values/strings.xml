@@ -64,4 +64,9 @@
     <string name="satellite_map">Satellite</string>
     <string name="terrain_map">Terrain</string>
     <string name="tv_number">Number</string>
+    <string name="tvHistory">History</string>
+    <string name="tvNotifications">Notifications</string>
+    <string name="btDone">Done!</string>
+    <string name="noNotifications">No notifications</string>
+    <string name="keepComing">Keep coming back for updates!</string>
 </resources>

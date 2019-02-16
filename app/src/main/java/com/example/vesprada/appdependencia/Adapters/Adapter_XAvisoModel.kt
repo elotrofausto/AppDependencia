@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.vesprada.appdependencia.Activities.NotificacionesActivity
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.Utils
@@ -59,6 +60,7 @@ class Adapter_XAvisoModel(context: Context, avisoList: ArrayList<XAvisoModel>, r
     override fun onClick(v: View?) {
         val itemPosition = recyclerView.getChildLayoutPosition(v!!)
         val item = avisoList.get(itemPosition)
+        NotificacionesActivity.currentId = Integer(item.id) //Guardamos el id del aviso seleccionado en una variable estática para su posterior uso
         Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
         selectedItemView.findViewById<TextView>(R.id.tvDescripcion).text = item.name
         when (item.tipo){

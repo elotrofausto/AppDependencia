@@ -1,4 +1,4 @@
-//package com.example.vesprada.appdependencia.BackgroundLogin;
+//package com.example.vesprada.appdependencia.SyncDBTask;
 //
 //import android.content.Context;
 //import android.net.ConnectivityManager;

@@ -5,8 +5,7 @@
     android:id="@+id/mapLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/patternbg"
-    tools:context=".MapsActivity">
+    android:background="@drawable/patternbg">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

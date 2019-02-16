@@ -17,7 +17,7 @@
         android:title="@string/events" />
 
     <item
-        android:id="@+id/mapa"
+        android:id="@+id/googlemap"
         android:icon="@drawable/ic_custom_map"
         android:title="@string/map" />
 

@@ -31,11 +31,11 @@ class RedButtonActivity : AppCompatActivity() {
             }
             R.id.eventos -> {
 
-                var intent = Intent(this, TareasActivity::class.java)
+                var intent = Intent(this, HistorialActivity::class.java)
                 startActivity(intent)
                 //finish()
             }
-            R.id.mapa -> {
+            R.id.googlemap -> {
 
                 var intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)

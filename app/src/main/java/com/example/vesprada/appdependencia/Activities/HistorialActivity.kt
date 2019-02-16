@@ -19,54 +19,42 @@ import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.R.id.tvDate
 import com.example.vesprada.appdependencia.R.id.tvDescripcion
 import kotlinx.android.synthetic.main.activity_red_button.*
-import java.text.SimpleDateFormat
 import java.util.*
 
-class TareasActivity : AppCompatActivity(){
+class HistorialActivity : AppCompatActivity(){
 
     var listaTareas : ArrayList<XAvisoModel> = ArrayList()
     lateinit var db : DependenciaDBManager
     lateinit var recyclerView : RecyclerView
     lateinit var adapter : Adapter_XAvisoModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_tareas)
+        setContentView(R.layout.activity_historial)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId= R.id.eventos
 
         initDB()
         setUI()
-
-        //Este metodo lo he creado para que ese fragmento de codigo este separado para que en caso de moverlo solamente copiar el metodo entero
         cargarPrimeraTarea()
-
     }
 
     private fun initDB() {
-
         db = DependenciaDBManager(this.applicationContext)
-        var fechaDesde = "2019-12-01"
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        var date = dateFormat.parse(fechaDesde)
-
-        db.insertAviso(XAvisoModel(0, "123456789L", "medico", "Cita con el médico", date, date, "Mañana a las 8:00 AM"))
-        db.insertAviso(XAvisoModel(0, "123456789L", "medicinas", "Ibuprofeno 500 Mg", date, date, "Mañana a las 8:00 AM"))
-        db.insertAviso(XAvisoModel(0, "123456789L", "otros", "Visita al museo de la ciencia", date, date, "Mañana a las 8:00 AM"))
-        listaTareas.addAll(db.getAvisoRows(null))
+        listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
     }
 
     private fun cargarPrimeraTarea() {
-
         if (!listaTareas.isEmpty()){
             if (!listaTareas.isEmpty()){
                 findViewById<TextView>(tvDescripcion).text = listaTareas.get(0).name
                 findViewById<TextView>(tvDate).text = listaTareas.get(0).fecDesde.toString()
             }
+        }else{
+            findViewById<TextView>(tvDescripcion).text = "History is empty"
+            findViewById<TextView>(tvDate).text = "Keep coming back for updates!"
         }
-
     }
 
     private fun setUI() {
@@ -87,10 +75,12 @@ class TareasActivity : AppCompatActivity(){
     {
         if (findViewById<ToggleButton>(R.id.toggleButton).isChecked){
             listaTareas.removeAll(listaTareas)
-            listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.TIPO + " = 'medicinas'"))
+            listaTareas.addAll(db.getAvisoRows(
+                    DependenciaDBContract.Aviso.TIPO + " = 'medicinas' AND "
+                            + DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
         }else{
             listaTareas.removeAll(listaTareas)
-            listaTareas.addAll(db.getAvisoRows(null))
+            listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
         }
         adapter.notifyDataSetChanged()
         cargarPrimeraTarea()
@@ -115,7 +105,7 @@ class TareasActivity : AppCompatActivity(){
             R.id.eventos -> {
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.mapa -> {
+            R.id.googlemap -> {
                 var intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
                 finish()

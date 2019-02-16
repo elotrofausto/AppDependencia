@@ -2,14 +2,15 @@ package com.example.vesprada.appdependencia.Activities
 
 //import com.google.android.gms.location.places.Places
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageButton
 import com.example.vesprada.appdependencia.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,14 +19,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    lateinit var btEmergency: ImageButton
-    lateinit var btCitas: ImageButton
-    lateinit var btNotifications: ImageButton
     private lateinit var mMap: GoogleMap
     private val REQUESTLOCATIONPERMISSION=1
     lateinit var markerPoints : ArrayList<LatLng>
@@ -33,7 +32,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.selectedItemId= R.id.googlemap
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -161,6 +161,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     enableMyLocation()
                 }
         }
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.emergencias -> {
+                var intent = Intent(this, RedButtonActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            R.id.notificaciones -> {
+
+                var intent = Intent(this, NotificacionesActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.eventos -> {
+
+                var intent = Intent(this, HistorialActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.googlemap -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.configuracion -> {
+                var intent = Intent(this, ConfiguracionActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        false
     }
 
 }
