@@ -1,10 +1,11 @@
 package com.example.vesprada.appdependencia.Activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -14,8 +15,6 @@ import com.example.vesprada.appdependencia.R
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.SQLException
-import android.app.Activity
-
 
 
 class LoginActivity : AppCompatActivity() {

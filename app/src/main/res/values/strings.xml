@@ -73,4 +73,5 @@
     <string name="btArchive">View Archive</string>
     <string name="btRecent">View Recent</string>
     <string name="EmptyHistory">History is empty</string>
+    <string name="location_permission_denied">Location access permission is required</string>
 </resources>
