@@ -3,6 +3,8 @@ package com.example.vesprada.appdependencia.Background;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.vesprada.appdependencia.DB.DependenciaDBContract;
 import com.example.vesprada.appdependencia.DB.DependenciaDBManager;
 import com.example.vesprada.appdependencia.DB.PostgresDBConnection;
 import com.example.vesprada.appdependencia.Models.XAvisoModel;
@@ -17,6 +19,7 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
 
     private static final String GETAVISOS = "SELECT * FROM x_aviso_model WHERE id_dependiente = (SELECT id_dependiente FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = ?) AND password =?) AND recibido != true";
     private static final String UPDATERECEIVED = "UPDATE x_aviso_model SET recibido = True WHERE id = ?";
+    private static final String UPDATEFINISHED = "UPDATE x_aviso_model SET tomas = tomas - 1 WHERE id = ?";
 
     private static final String SYNCTAG = "SYNCBDSERVICE";
     private static Boolean correctSync = false;
@@ -37,8 +40,8 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
         try {
             PostgresDBConnection instance = PostgresDBConnection.getInstance();
             Connection conn = instance.getConnection();
-            pgServerToSQLite(conn);
             SQLiteToServer(conn);
+            pgServerToSQLite(conn);
             conn.close();
         } catch (SQLException se) {
             System.out.println("oops! No se puede conectar. Error: " + se.toString());
@@ -79,8 +82,17 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
         Log.i(SYNCTAG,"Avisos sincronizados en la base de datos local SQLite");
     }
 
-    private void SQLiteToServer(Connection conn){
-
+    private void SQLiteToServer(Connection conn) throws SQLException {
+        //Actualizamos los avisos finalizados en Postgres para que los asistentes tengan constancia
+        List<XAvisoModel> listaAcabados = db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1");
+        for (XAvisoModel aviso: listaAcabados) {
+            int id = aviso.getId();
+            PreparedStatement updatePst = conn.prepareStatement(UPDATEFINISHED);
+            updatePst.setInt(1,id);
+            updatePst.executeUpdate();
+            db.setAvisoSynced(id);
+        }
+        Log.i(SYNCTAG,"Avisos sincronizados en la base de datos remota Postgres");
     }
 
 }

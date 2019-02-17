@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
@@ -18,6 +19,7 @@ import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.R.id.tvDate
 import com.example.vesprada.appdependencia.R.id.tvDescripcion
+import kotlinx.android.synthetic.main.activity_historial.*
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
 
@@ -27,13 +29,16 @@ class HistorialActivity : AppCompatActivity(){
     lateinit var db : DependenciaDBManager
     lateinit var recyclerView : RecyclerView
     lateinit var adapter : Adapter_XAvisoModel
+    companion object {
+        lateinit var currentId: Integer
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_historial)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        navigation.selectedItemId= R.id.eventos
+        navigationH.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigationH.selectedItemId= R.id.eventos
 
         initDB()
         setUI()
@@ -48,12 +53,17 @@ class HistorialActivity : AppCompatActivity(){
     private fun cargarPrimeraTarea() {
         if (!listaTareas.isEmpty()){
             if (!listaTareas.isEmpty()){
-                findViewById<TextView>(tvDescripcion).text = listaTareas.get(0).name
-                findViewById<TextView>(tvDate).text = listaTareas.get(0).fecDesde.toString()
+                findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name
+                findViewById<TextView>(R.id.tvDate).text = listaTareas.get(0).fecDesde.toString()
+                currentId = Integer(listaTareas.get(0).id)
+                if (!findViewById<ToggleButton>(R.id.toggleHistButton).isChecked){
+                    findViewById<Button>(R.id.btUndone).visibility = View.VISIBLE
+                }
             }
         }else{
-            findViewById<TextView>(tvDescripcion).text = "History is empty"
-            findViewById<TextView>(tvDate).text = "Keep coming back for updates!"
+            findViewById<TextView>(R.id.tvDescripcion).text = getString(R.string.EmptyHistory)
+            findViewById<TextView>(R.id.tvDate).text = getString(R.string.keepComing)
+            findViewById<Button>(R.id.btUndone).visibility = View.INVISIBLE
         }
     }
 
@@ -71,17 +81,26 @@ class HistorialActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
-    public fun onToggleClick(v: View)
+    fun onToggleClick(v: View)
     {
-        if (findViewById<ToggleButton>(R.id.toggleButton).isChecked){
+        if (findViewById<ToggleButton>(R.id.toggleHistButton).isChecked){
             listaTareas.removeAll(listaTareas)
-            listaTareas.addAll(db.getAvisoRows(
-                    DependenciaDBContract.Aviso.TIPO + " = 'medicinas' AND "
-                            + DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
+            listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 2"))
+            findViewById<Button>(R.id.btUndone).visibility = View.INVISIBLE
         }else{
             listaTareas.removeAll(listaTareas)
             listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
+            findViewById<Button>(R.id.btUndone).visibility = View.VISIBLE
+
         }
+        adapter.notifyDataSetChanged()
+        cargarPrimeraTarea()
+    }
+
+    fun unfinishTask(v: View){
+        db.setAvisoUnfinished(currentId.toInt())
+        val avisoPredicate = { a : XAvisoModel -> a.id === currentId.toInt() }
+        listaTareas.removeIf(avisoPredicate)
         adapter.notifyDataSetChanged()
         cargarPrimeraTarea()
     }

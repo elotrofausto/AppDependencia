@@ -69,4 +69,8 @@
     <string name="btDone">Done!</string>
     <string name="noNotifications">No notifications</string>
     <string name="keepComing">Keep coming back for updates!</string>
+    <string name="btUndone">Undone</string>
+    <string name="btArchive">View Archive</string>
+    <string name="btRecent">View Recent</string>
+    <string name="EmptyHistory">History is empty</string>
 </resources>

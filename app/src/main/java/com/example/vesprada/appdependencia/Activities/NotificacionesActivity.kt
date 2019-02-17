@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
@@ -53,10 +54,12 @@ class NotificacionesActivity : AppCompatActivity() {
                 currentId = Integer(listaTareas.get(0).id)
                 findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name
                 findViewById<TextView>(R.id.tvDate).text = listaTareas.get(0).fecDesde.toString()
+                findViewById<Button>(R.id.button).visibility = View.VISIBLE
             }
         }else{
             findViewById<TextView>(R.id.tvDescripcion).text = getString(R.string.noNotifications)
             findViewById<TextView>(R.id.tvDate).text = getString(R.string.keepComing)
+            findViewById<Button>(R.id.button).visibility = View.INVISIBLE
         }
     }
 
@@ -76,7 +79,7 @@ class NotificacionesActivity : AppCompatActivity() {
 
     fun onToggleClick(v: View)
     {
-        if (findViewById<ToggleButton>(R.id.toggleButton).isChecked){
+        if (findViewById<ToggleButton>(R.id.toggleHistButton).isChecked){
             listaTareas.removeAll(listaTareas)
             listaTareas.addAll(db.getAvisoRows(
                     DependenciaDBContract.Aviso.TIPO + " = 'medicinas' AND "

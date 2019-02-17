@@ -53,8 +53,31 @@ public class DependenciaDBManager {
 
         if (sqLiteDatabase != null){
             ContentValues contentValue = new ContentValues();
-            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 1); // finalizado = true al actualizar
+            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 1); // finalizado = true
 
+            sqLiteDatabase.update(DependenciaDBContract.Aviso.TABLE_NAME,  contentValue, DependenciaDBContract.Aviso._ID + " = " + id,null);
+        }
+    }
+
+    public void setAvisoUnfinished(Integer id){
+        //open database to read and write
+        SQLiteDatabase sqLiteDatabase = todoListDBHelper.getWritableDatabase();
+
+        if (sqLiteDatabase != null){
+            ContentValues contentValue = new ContentValues();
+            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 0); // finalizado = false
+
+            sqLiteDatabase.update(DependenciaDBContract.Aviso.TABLE_NAME,  contentValue, DependenciaDBContract.Aviso._ID + " = " + id,null);
+        }
+    }
+
+    public void setAvisoSynced(Integer id){
+        //open database to read and write
+        SQLiteDatabase sqLiteDatabase = todoListDBHelper.getWritableDatabase();
+
+        if (sqLiteDatabase != null){
+            ContentValues contentValue = new ContentValues();
+            contentValue.put(DependenciaDBContract.Aviso.FINALIZADO, 2); // Lo marcamos a 2 cuando está sincronizado en Postgres para no volverlo a enviar
             sqLiteDatabase.update(DependenciaDBContract.Aviso.TABLE_NAME,  contentValue, DependenciaDBContract.Aviso._ID + " = " + id,null);
         }
     }
