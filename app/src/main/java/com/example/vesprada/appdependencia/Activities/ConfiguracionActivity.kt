@@ -3,6 +3,7 @@ package com.example.vesprada.appdependencia.Activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -24,6 +25,9 @@ import kotlinx.android.synthetic.main.content_configuracion.*
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import android.support.v4.content.ContextCompat.startActivity
+import java.io.FileOutputStream
+
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -278,14 +282,20 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 Toast.makeText(this, "Imprimendo informe medicamentos", Toast.LENGTH_LONG).show()
 
                 val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.MedicinesDocument), 1, sharedPreferences.getString(DNI, "none"), this)
-                confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+                val pdfIntent = Intent(Intent.ACTION_VIEW, Uri.parse(pdfFromXmlFile.url.toString()))
+                startActivity(pdfIntent)
+                //confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+                //confAsyncTask.execute()
 
             }
             R.id.nav_informe_otras_tareas->{
                 Toast.makeText(this, "Imprimendo informe de otras tareas", Toast.LENGTH_LONG).show()
 
                 val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.OtherTasksDocument), 2, sharedPreferences.getString(DNI, "none"), this)
-                confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+                val pdfIntent = Intent(Intent.ACTION_VIEW, Uri.parse(pdfFromXmlFile.url.toString()))
+                startActivity(pdfIntent)
+                //confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
+                //confAsyncTask.execute()
 
             }
         }
@@ -319,6 +329,8 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     fos.write(`is`.read())
                     fos.flush()
                 }
+
+
             }
 
             return correctWrite
