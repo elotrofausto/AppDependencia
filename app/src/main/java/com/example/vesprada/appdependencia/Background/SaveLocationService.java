@@ -29,7 +29,7 @@ public class SaveLocationService extends JobService {
             }
         };
         startTrackingLocation();
-
+        jobFinished(params,true);
         return true;
     }
 

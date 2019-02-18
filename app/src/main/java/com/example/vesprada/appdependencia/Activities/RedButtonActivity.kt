@@ -2,9 +2,7 @@ package com.example.vesprada.appdependencia.Activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,6 +15,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Toast
+import com.example.vesprada.appdependencia.Background.BootReceiver
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
 import kotlinx.android.synthetic.main.activity_red_button.*
@@ -26,7 +25,6 @@ class RedButtonActivity : AppCompatActivity() {
 
     private val REQUEST_LOCATION_PERMISSION = 1234
     private val REQUEST_CONTACTS = 1
-    private val JOB_ID = 1234
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,11 +75,22 @@ class RedButtonActivity : AppCompatActivity() {
     }
 
     private fun initJob() {
-        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(JobInfo.Builder(JOB_ID,
-                ComponentName(this, SaveLocationService::class.java!!))
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .build())
+        if (!isMyServiceRunning(SaveLocationService::class.java)){
+            var bootReceiver = BootReceiver()
+            bootReceiver.scheduleJob(this)
+        }
+    }
+
+    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                Log.i("LOCATIONSERVICE:", "Already running")
+                return true
+            }
+        }
+        Log.i("LOCATIONSERVICE:", "Not running at this moment. Service will be started")
+        return false
     }
 
     fun onClickLlamadas(v: View){

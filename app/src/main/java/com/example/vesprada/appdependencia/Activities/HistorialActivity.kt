@@ -16,6 +16,7 @@ import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
 import com.example.vesprada.appdependencia.DB.DependenciaDBContract
 import com.example.vesprada.appdependencia.DB.DependenciaDBManager
 import com.example.vesprada.appdependencia.Models.XAvisoModel
+import com.example.vesprada.appdependencia.Models.XGeoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.R.id.tvDate
 import com.example.vesprada.appdependencia.R.id.tvDescripcion
@@ -48,6 +49,9 @@ class HistorialActivity : AppCompatActivity(){
     private fun initDB() {
         db = DependenciaDBManager(this.applicationContext)
         listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
+        var listageo : ArrayList<XGeoModel> = ArrayList()
+        listageo.addAll(db.getGeoRows(null))
+
     }
 
     private fun cargarPrimeraTarea() {

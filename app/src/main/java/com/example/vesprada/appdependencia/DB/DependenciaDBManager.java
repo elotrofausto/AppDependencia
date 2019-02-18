@@ -134,49 +134,58 @@ public class DependenciaDBManager {
     //----------------------------------------------------------------------------------------------
 
     //Create new row
-    public void insertGeo(XGeoModel aviso){
+    public void insertGeo(XGeoModel geo){
         //open database to read and write
         SQLiteDatabase sqLiteDatabase = todoListDBHelper.getWritableDatabase();
 
         if (sqLiteDatabase != null){
             ContentValues contentValue = new ContentValues();
 
-            //contentValue.put(DependenciaDBContract.Aviso.DNI, aviso.getDependienteDNI());
-            //contentValue.put(DependenciaDBContract.Aviso.TIPO, aviso.getTipo());
-            //contentValue.put(DependenciaDBContract.Aviso.NOMBRE, aviso.getName());
-            //contentValue.put(DependenciaDBContract.Aviso.DESDE, String.valueOf(aviso.getFecDesde()));
-            //contentValue.put(DependenciaDBContract.Aviso.HASTA, String.valueOf(aviso.getFecHasta()));
-            //contentValue.put(DependenciaDBContract.Aviso.PERIODICIDAD, aviso.getPeriodicidad());
+            contentValue.put(DependenciaDBContract.Geo.FECHA,geo.getFechaLong());
+            contentValue.put(DependenciaDBContract.Geo.LAT,geo.getLat());
+            contentValue.put(DependenciaDBContract.Geo.LONG,geo.getLng());
 
             sqLiteDatabase.insert(DependenciaDBContract.Geo.TABLE_NAME, null, contentValue);
         }
     }
 
     //Select rows
-    public Cursor getGeoRows(){
+    public List<XGeoModel> getGeoRows(String having){
+        List<XGeoModel> listaGeo = new ArrayList<>();
         Cursor cursor = null;
         //open database to read
         SQLiteDatabase sqLiteDatabase = todoListDBHelper.getReadableDatabase();
 
         if (sqLiteDatabase != null){
-            String[] projection = new String[]{DependenciaDBContract.Aviso._ID,
-                    DependenciaDBContract.Aviso.DNI,
-                    DependenciaDBContract.Aviso.TIPO,
-                    DependenciaDBContract.Aviso.NOMBRE,
-                    DependenciaDBContract.Aviso.DESDE,
-                    DependenciaDBContract.Aviso.HASTA,
-                    DependenciaDBContract.Aviso.PERIODICIDAD};
+            String[] projection = new String[]{DependenciaDBContract.Geo._ID,
+            DependenciaDBContract.Geo.FECHA,
+            DependenciaDBContract.Geo.LAT,
+            DependenciaDBContract.Geo.LONG};
 
             cursor = sqLiteDatabase.query(DependenciaDBContract.Geo.TABLE_NAME,
                     projection,
                     null,
                     null,
-                    null,
-                    null,
+                    DependenciaDBContract.Geo._ID,
+                    having,
                     null);
+
+            if (cursor != null && cursor.moveToFirst()){
+                do {
+                    Date fecha = null;
+                    Long sFecha = cursor.getLong(cursor.getColumnIndexOrThrow(DependenciaDBContract.Geo.FECHA));
+                    fecha = new Date(sFecha);
+
+                    listaGeo.add(new XGeoModel(
+                            fecha,
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(DependenciaDBContract.Geo.LAT)),
+                            cursor.getDouble(cursor.getColumnIndexOrThrow(DependenciaDBContract.Geo.LONG))
+                    ));
+                }while(cursor.moveToNext());
+            }
         }
 
-        return cursor;
+        return listaGeo;
     }
 
 

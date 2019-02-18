@@ -64,9 +64,9 @@ public class DependenciaDBContract {
         public static final String CREATE_TABLE = "CREATE TABLE " + Geo.TABLE_NAME
                 + " ("
                 + Geo._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Geo.FECHA + " TEXT NOT NULL, "
-                + Geo.LAT + " TEXT NOT NULL, "
-                + Geo.LONG + " TEXT NOT NULL, "
+                + Geo.FECHA + " LONG NOT NULL, "
+                + Geo.LAT + " LONG NOT NULL, "
+                + Geo.LONG + " FLOAT NOT NULL"
                 + ");";
 
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + Geo.TABLE_NAME;

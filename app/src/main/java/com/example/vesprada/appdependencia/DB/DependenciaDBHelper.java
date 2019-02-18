@@ -23,12 +23,14 @@ public class DependenciaDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DependenciaDBContract.Aviso.CREATE_TABLE);
+        db.execSQL(DependenciaDBContract.Geo.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //the upgrade policy is simply discard and start over
         db.execSQL(DependenciaDBContract.Aviso.DELETE_TABLE);
+        db.execSQL(DependenciaDBContract.Geo.DELETE_TABLE);
         onCreate(db);
     }
 }

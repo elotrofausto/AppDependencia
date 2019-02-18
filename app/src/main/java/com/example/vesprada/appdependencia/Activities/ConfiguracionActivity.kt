@@ -16,7 +16,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.example.vesprada.appdependencia.AdaptersAndClasses.DialogoPersonalizadoDependiente
+import com.example.vesprada.appdependencia.Adapters.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.content_configuracion.*
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import android.support.v4.content.ContextCompat.startActivity
-import java.io.FileOutputStream
 
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

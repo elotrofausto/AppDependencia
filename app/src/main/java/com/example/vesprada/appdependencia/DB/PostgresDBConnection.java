@@ -18,8 +18,8 @@ public class PostgresDBConnection {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://149.202.8.235:5432/BDgrup2", "grup2", "Grupo-312");
-            //"jdbc:postgresql://10.0.2.2:9999/BDgrup2", "grup2", "Grupo-312");
+            //        "jdbc:postgresql://149.202.8.235:5432/BDgrup2", "grup2", "Grupo-312");
+            "jdbc:postgresql://10.0.2.2:9999/BDgrup2", "grup2", "Grupo-312");
         } catch (SQLException e) {
             System.out.println("Database Connection Creation Failed : " + e.getMessage());
         } catch (ClassNotFoundException e) {
