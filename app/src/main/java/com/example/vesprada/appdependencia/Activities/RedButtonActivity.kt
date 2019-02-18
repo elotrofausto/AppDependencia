@@ -85,11 +85,9 @@ class RedButtonActivity : AppCompatActivity() {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
-                Log.i("LOCATIONSERVICE:", "Already running")
                 return true
             }
         }
-        Log.i("LOCATIONSERVICE:", "Not running at this moment. Service will be started")
         return false
     }
 
