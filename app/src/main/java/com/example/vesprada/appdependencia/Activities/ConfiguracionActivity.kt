@@ -44,12 +44,6 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     lateinit var ultimaIpAsistente : String
     var editando: Boolean = false
 
-    private lateinit var confAsyncTask: ConfigTask
-
-    companion object {
-        var ConfigPb: ProgressBar? = null
-    }
-
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.emergencias -> {
@@ -122,7 +116,6 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         etNombre = findViewById(R.id.ed_nombreDependiente)
         etPasswd = findViewById(R.id.ed_passwdDependiente)
         ipAsistente = findViewById(R.id.ed_ipAsistente)
-        ConfigPb = findViewById(R.id.pbConf)
 
         //Carga el nombre, contraseña e ip del asistente que tenia previamente
         cargarDatosIniciales()
@@ -279,21 +272,17 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_informe_medicamentos->{
                 Toast.makeText(this, "Imprimendo informe medicamentos", Toast.LENGTH_LONG).show()
 
-                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.MedicinesDocument), 1, sharedPreferences.getString(DNI, "none"), this)
+                val pdfFromXmlFile = PdfFromXmlFile(1, sharedPreferences.getString(DNI, "none"))
                 val pdfIntent = Intent(Intent.ACTION_VIEW, Uri.parse(pdfFromXmlFile.url.toString()))
                 startActivity(pdfIntent)
-                //confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
-                //confAsyncTask.execute()
 
             }
             R.id.nav_informe_otras_tareas->{
                 Toast.makeText(this, "Imprimendo informe de otras tareas", Toast.LENGTH_LONG).show()
 
-                val pdfFromXmlFile = PdfFromXmlFile(resources.getString(R.string.OtherTasksDocument), 2, sharedPreferences.getString(DNI, "none"), this)
+                val pdfFromXmlFile = PdfFromXmlFile(2, sharedPreferences.getString(DNI, "none"))
                 val pdfIntent = Intent(Intent.ACTION_VIEW, Uri.parse(pdfFromXmlFile.url.toString()))
                 startActivity(pdfIntent)
-                //confAsyncTask = ConfigTask(pdfFromXmlFile.url, pdfFromXmlFile.method, pdfFromXmlFile.fos, this)
-                //confAsyncTask.execute()
 
             }
         }
@@ -302,59 +291,4 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         return true
     }
 
-    //static class for AsyncTask
-    //----------------------------------------------------------------------------------------------
-    class ConfigTask(private val url: URL, private val method: String, private val fos: OutputStream, private val context: Context) : AsyncTask<Void, Void, Boolean>() {
-
-        public var correctWrite: Boolean = false
-        lateinit var conection : HttpURLConnection
-        var responseCode = 0
-
-        init {
-            this.correctWrite = false
-        }
-
-        //Runs in background Thread
-        override fun doInBackground(vararg params: Void): Boolean? {
-
-            conection = url.openConnection() as HttpURLConnection
-            conection.setRequestMethod(method)
-            responseCode = conection.getResponseCode()
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val `is` = conection.getInputStream()
-                while (`is`.available() > 0) {
-                    fos.write(`is`.read())
-                    fos.flush()
-                }
-
-
-            }
-
-            return correctWrite
-
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            ConfigPb!!.visibility = View.VISIBLE
-        }
-
-        override fun onPostExecute(result: Boolean?) {
-            ConfigPb!!.visibility = View.INVISIBLE
-            if (result!!) {
-                Toast.makeText(context, "Exito en la descarga del informe", Toast.LENGTH_LONG).show()
-                //lanzarSplashActivity()
-                //(context as Activity).finish()
-            } else {
-                Toast.makeText(context, "Error en la descarga del informe", Toast.LENGTH_LONG).show()
-            }
-        }
-
-        override fun onCancelled() {
-            super.onCancelled()
-            Log.e("onCancelled", "ASYNCTASK " + this.javaClass.simpleName + ": I've been canceled and ready to GC clean")
-        }
-
-    }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/patternbg"
-    tools:context=".Activities.NotificacionesActivity">
+    tools:context=".Activities.HistorialActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/lyCurrentTask"
@@ -59,7 +59,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                    android:textSize="20sp"
+                    android:textSize="35sp"
                     app:layout_constraintBottom_toBottomOf="@+id/ivCurrentIcon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivCurrentIcon"
@@ -73,21 +73,22 @@
                     android:layout_marginTop="8dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvDescripcion"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/tvDescripcion"
                     app:layout_constraintTop_toBottomOf="@+id/tvDescripcion" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btUndone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:onClick="finishTask"
-                    android:text="@string/btDone"
+                    android:onClick="unfinishTask"
+                    android:text="@string/btUndone"
+                    android:textSize="25sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/tvDate"
                     app:layout_constraintTop_toBottomOf="@+id/tvDate" />
@@ -120,8 +121,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="onToggleClick"
-        android:textOff="@string/tbMedic"
-        android:textOn="@string/tbAll"
+        android:textOff="@string/btArchive"
+        android:textOn="@string/btRecent"
         app:layout_constraintBottom_toTopOf="@+id/btEmergencyBig"
         app:layout_constraintEnd_toEndOf="@+id/lvTasks"
         app:layout_constraintTop_toTopOf="parent"
@@ -136,14 +137,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:onClick="onClickBotonRojo"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintBottom_toTopOf="@+id/navigationH"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:srcCompat="@drawable/btn_rojo550x550" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/navigationH"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
@@ -169,7 +170,7 @@
         app:layout_constraintBottom_toTopOf="@+id/lyCurrentTask"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_alert" />
+        app:srcCompat="@drawable/ic_custom_events" />
 
     <TextView
         android:id="@+id/textView8"
@@ -179,7 +180,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/tvNotifications"
+        android:text="@string/tvHistory"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="30sp"
         android:textStyle="bold"

@@ -27,21 +27,13 @@ class SplashInitActivity : AppCompatActivity() {
 
     private lateinit var loginTask: LoginTask
 
-    companion object {
-        var splashPb: ProgressBar? = null
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initsplash)
 
-        setUI()
         comprobarInicio()
     }
 
-    fun setUI(){
-        splashPb = findViewById(R.id.splashPb)
-    }
 
     fun comprobarInicio(){
         val myPreferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
@@ -88,11 +80,10 @@ class SplashInitActivity : AppCompatActivity() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            SplashInitActivity.splashPb!!.visibility = View.VISIBLE
         }
 
         override fun onPostExecute(result: Boolean?) {
-            SplashInitActivity.splashPb!!.visibility = View.INVISIBLE
+
             if (result!!) {
                 Toast.makeText(context, "AUTENTICACIÓN CORRECTA", Toast.LENGTH_LONG).show()
                 lanzarSplashActivity()
