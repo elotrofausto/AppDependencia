@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_mod_datos"
-            android:title="@string/modificar_nombre_y_passwd" />
+            android:title="@string/mostrar_ocultar_passwd" />
         <item
             android:id="@+id/nav_mod_ip_asistente"
             android:title="@string/cambiar_asistente" />

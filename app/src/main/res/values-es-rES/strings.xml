@@ -4,7 +4,7 @@
     <string name="tv_DNI">DNI del dependiente</string>
     <string name="tv_dependent_name">Nombre del dependiente</string>
     <string name="tv_email">Correo electrónico</string>
-    <string name="tv_passwd">Contraseña</string>
+    <string name="tv_passwd">Confirmar\nContraseña</string>
     <string name="bt_login">Iniciar Sesión</string>
     <string name="bt_ok">VALE</string>
     <string name="bt_cancel">CANCELAR</string>
@@ -24,10 +24,10 @@
     <string name="conf_call_cancel">Cancelar</string>
     <string name="llamadaCancelada">Llamada cancelada correctamente</string>
     <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
-    <string name="nombreDependiente">Nombre</string>
+    <string name="dependentDNI">DNI</string>
     <string name="ip_asistente">Asistente</string>
     <string name="informes">Informes</string>
-    <string name="modificar_nombre_y_passwd">Cambiar Nombre y Contraseña</string>
+    <string name="mostrar_ocultar_passwd">Mostrar/Ocultar Contraseña</string>
     <string name="cambiar_asistente">Cambiar Asistente</string>
     <string name="informe_medicamentos">Imprimir Informe de Medicinas</string>
     <string name="informe_tareas_varias">Imprimir Informe de Tareas Generales</string>
@@ -63,4 +63,9 @@
     <string name="btRecent">Ver Reciente</string>
     <string name="EmptyHistory">El historial está vacío</string>
     <string name="location_permission_denied">Se requieren permisos de acceso a la localización</string>
+    <string name="alertDialogMessage">Do you want to leave without saving?</string>
+    <string name="yesAlert">yes</string>
+    <string name="configurationPassword">Password</string>
+    <string name="Name"></string>
+    <string name="no_hay_ip_asistente">No hay IP del Asistente, por favor introduzca una</string>
 </resources>

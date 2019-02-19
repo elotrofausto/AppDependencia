@@ -20,9 +20,10 @@
     <string name="tv_DNI">Dependent ID</string>
     <string name="tv_dependent_name">Dependent\'s name</string>
     <string name="tv_email">E-mail</string>
-    <string name="tv_passwd">Password</string>
+    <string name="tv_passwd">Confirm\nPassword</string>
     <string name="bt_login">Log In</string>
     <string name="bt_ok">OK</string>
+    <string name="Name"></string>
     <string name="bt_cancel">Cancel</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_alerts">Alerts</string>
@@ -38,10 +39,10 @@
     <string name="tbAll">View All</string>
     <string name="tvEmptyList">The list is empty</string>
     <string name="title_activity_configuracion" translatable="false">ConfiguracionActivity</string>
-    <string name="nombreDependiente">Name</string>
+    <string name="dependentDNI">DNI</string>
     <string name="ip_asistente">Asistente</string>
     <string name="informes">Reports</string>
-    <string name="modificar_nombre_y_passwd">Change Name and Password</string>
+    <string name="mostrar_ocultar_passwd">Show/Hide Password</string>
     <string name="cambiar_asistente">Change Assistent</string>
     <string name="informe_medicamentos">Print Medicines Report</string>
     <string name="informe_tareas_varias">Print General Tasks Report</string>
@@ -74,4 +75,8 @@
     <string name="btRecent">View Recent</string>
     <string name="EmptyHistory">History is empty</string>
     <string name="location_permission_denied">Location access permission is required</string>
+    <string name="alertDialogMessage">Do you want to leave without saving?</string>
+    <string name="yesAlert">yes</string>
+    <string name="configurationPassword">Password</string>
+    <string name="no_hay_ip_asistente">There isn\'t an Assistant IP, please introduce one</string>
 </resources>
