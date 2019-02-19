@@ -1,6 +1,7 @@
 package com.example.vesprada.appdependencia.Background;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,13 +14,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class SaveLocationTask extends AsyncTask<Location, Void, Location> {
     private final String TAG = SaveLocationTask.class.getSimpleName();
-    private final String INSERTGEO = "INSERT INTO x_geolocaliz_model VALUES(null,?,?,?,?,null,null,null)";
+    private final String MYPREFS = "MyPrefs";
+    private final String INSERTGEO = "INSERT INTO x_geolocaliz_model(id_dependiente,latitud,longitud,fecha_hora) VALUES(?,?,?,?)";
     private Context mContext;
     private DependenciaDBManager db;
 
@@ -44,6 +47,12 @@ public class SaveLocationTask extends AsyncTask<Location, Void, Location> {
         //Guardamos en SQLite la localización
         db.insertGeo(new XGeoModel(new Date(),location.getLatitude(),location.getLongitude()));
 
+        //Subimos los datos a Postgres
+        try {
+            syncGeo(conn);
+        } catch (SQLException e) {
+           Log.i("POSTGRESQL","Error al actualizar las coordenadas en PostgreSQL " + e.getMessage());
+        }
 
         return location;
     }
@@ -61,16 +70,25 @@ public class SaveLocationTask extends AsyncTask<Location, Void, Location> {
 
         PreparedStatement updatePst = conn.prepareStatement(INSERTGEO);
 
+        SharedPreferences myPreferences = mContext.getSharedPreferences(MYPREFS, Context.MODE_PRIVATE);
 
+        conn.setAutoCommit(false);
         for (XGeoModel geo: geoList) {
-            updatePst.setInt(1,1);
+            updatePst.setInt(1, myPreferences.getInt("ID",0));
+            updatePst.setDouble(2, geo.getLat());
+            updatePst.setDouble(3, geo.getLng());
+            updatePst.setTimestamp(4, new Timestamp(geo.getFechaLong()));
             updatePst.addBatch();
         }
 
         try{
             updatePst.executeBatch();
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            //TODO eliminar de SQLite
+            conn.setAutoCommit(true);
         }
     }
 }

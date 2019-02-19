@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
     class LoginTask(private val user: String, private val pass: String, private val context: Context) : AsyncTask<Void, Void, Boolean>() {
         private val MYPREFS = "MyPrefs"
         private lateinit var rs: ResultSet
-        public var correctLogin: Boolean = false
+        var correctLogin: Boolean = false
 
         init {
             this.correctLogin = false
