@@ -40,7 +40,6 @@ class SplashInitActivity : AppCompatActivity() {
         if(!myPreferences.getString(DNI, NONE).equals(NONE) && !myPreferences.getString(PASS, NONE).equals(NONE)){
             loginTask = LoginTask(myPreferences.getString(DNI,NONE), myPreferences.getString(PASS,NONE), this)
             loginTask.execute()
-            //TODO login only one time
         }else{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -83,7 +82,6 @@ class SplashInitActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: Boolean?) {
-
             if (result!!) {
                 Toast.makeText(context, "AUTENTICACIÓN CORRECTA", Toast.LENGTH_LONG).show()
                 lanzarSplashActivity()

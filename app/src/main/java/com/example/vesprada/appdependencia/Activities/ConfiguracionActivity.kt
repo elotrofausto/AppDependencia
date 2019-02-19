@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -16,15 +15,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.example.vesprada.appdependencia.Adapters.DialogoPersonalizadoDependiente
+import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
 import kotlinx.android.synthetic.main.content_configuracion.*
-import java.io.OutputStream
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

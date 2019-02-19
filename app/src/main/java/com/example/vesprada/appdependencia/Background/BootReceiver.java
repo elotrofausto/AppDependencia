@@ -19,7 +19,6 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "LocationService Active", Toast.LENGTH_SHORT).show();
         scheduleJob(context);
     }
 
