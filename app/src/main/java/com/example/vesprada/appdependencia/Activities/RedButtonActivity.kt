@@ -16,6 +16,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Toast
 import com.example.vesprada.appdependencia.Background.BootReceiver
+import com.example.vesprada.appdependencia.Background.PanicButton
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
 import kotlinx.android.synthetic.main.activity_red_button.*
@@ -25,6 +26,7 @@ class RedButtonActivity : AppCompatActivity() {
 
     private val REQUEST_LOCATION_PERMISSION = 1234
     private val REQUEST_CONTACTS = 1
+    private val MYPREFS = "MyPrefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +87,9 @@ class RedButtonActivity : AppCompatActivity() {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
-                Log.i("LOCATIONSERVICE:", "Already running")
                 return true
             }
         }
-        Log.i("LOCATIONSERVICE:", "Not running at this moment. Service will be started")
         return false
     }
 
@@ -126,6 +126,8 @@ class RedButtonActivity : AppCompatActivity() {
 
     fun onClickBotonRojo(v: View){
 
+            var pb : PanicButton.PanicButtonTask = PanicButton.PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
+            pb.execute()
 
             var intent = Intent(this, ActivityLlamada::class.java);
             Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")

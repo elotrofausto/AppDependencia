@@ -13,7 +13,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.vesprada.appdependencia.DB.PostgresDBConnection
 import com.example.vesprada.appdependencia.R
-import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.SQLException
 
@@ -57,14 +56,14 @@ class LoginActivity : AppCompatActivity() {
         loginTask = LoginTask(dni.text.toString(), passwd.text.toString(), this)
         findViewById<ProgressBar>(R.id.loginPb).visibility = View.VISIBLE
         loginTask.execute()
-
     }
 
     //static class for AsyncTask
     //----------------------------------------------------------------------------------------------
     class LoginTask(private val user: String, private val pass: String, private val context: Context) : AsyncTask<Void, Void, Boolean>() {
-
-        public var correctLogin: Boolean = false
+        private val MYPREFS = "MyPrefs"
+        private lateinit var rs: ResultSet
+        var correctLogin: Boolean = false
 
         init {
             this.correctLogin = false
@@ -75,11 +74,16 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val instance = PostgresDBConnection.getInstance()
                 val conn = instance.connection
-                val stsql = "SELECT * FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
+                val stsql = "SELECT id FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
                 val st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                val rs = st.executeQuery(stsql)
+                rs = st.executeQuery(stsql)
                 correctLogin = rs.isBeforeFirst
-                println(rs.getString(0))
+                if (correctLogin){
+                    val myPreferences = context.getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
+                    val editor = myPreferences.edit()
+                    editor.putString("ID", rs.getString(0))
+                    editor.commit()
+                }
                 conn.close()
             } catch (se: SQLException) {
                 println("oops! No se puede conectar. Error: " + se.toString())

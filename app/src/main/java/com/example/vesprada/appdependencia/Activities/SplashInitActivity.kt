@@ -40,7 +40,6 @@ class SplashInitActivity : AppCompatActivity() {
         if(!myPreferences.getString(DNI, NONE).equals(NONE) && !myPreferences.getString(PASS, NONE).equals(NONE)){
             loginTask = LoginTask(myPreferences.getString(DNI,NONE), myPreferences.getString(PASS,NONE), this)
             loginTask.execute()
-            //TODO login only one time
         }else{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -51,7 +50,8 @@ class SplashInitActivity : AppCompatActivity() {
     //static class for AsyncTask
     //----------------------------------------------------------------------------------------------
     class LoginTask(private val user: String, private val pass: String, private val context: Context) : AsyncTask<Void, Void, Boolean>() {
-
+        private val MYPREFS = "MyPrefs"
+        private lateinit var rs: ResultSet
         var correctLogin: Boolean = false
 
         init {
@@ -62,11 +62,18 @@ class SplashInitActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: Void): Boolean? {
             try {
                 val instance = PostgresDBConnection.getInstance()
-                val conn: Connection = instance.connection
-                val stsql = "SELECT * FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
+                val conn = instance.connection
+                val stsql = "SELECT id FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
                 val st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                val rs = st.executeQuery(stsql)
+                rs = st.executeQuery(stsql)
                 correctLogin = rs.isBeforeFirst
+                if (correctLogin){
+                    rs.next()
+                    val myPreferences = context.getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
+                    val editor = myPreferences.edit()
+                    editor.putInt("ID", rs.getInt(1))
+                    editor.commit()
+                }
                 conn.close()
             } catch (se: SQLException) {
                 println("oops! No se puede conectar. Error: " + se.toString())
@@ -83,18 +90,14 @@ class SplashInitActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: Boolean?) {
-
             if (result!!) {
                 Toast.makeText(context, "AUTENTICACIÓN CORRECTA", Toast.LENGTH_LONG).show()
                 lanzarSplashActivity()
                 (context as Activity).finish()
             } else {
-                Toast.makeText(context, "INTRODUZCA USUARIO Y CONTRASEÑA", Toast.LENGTH_LONG).show()
-                lanzarLogin()
-                (context as Activity).finish()
+                Toast.makeText(context, "ERROR DE AUTENTICACIÖN", Toast.LENGTH_LONG).show()
             }
         }
-
 
         override fun onCancelled() {
             super.onCancelled()
@@ -106,10 +109,7 @@ class SplashInitActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        private fun lanzarLogin(){
-            val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
-        }
-
     }
+
 }
+

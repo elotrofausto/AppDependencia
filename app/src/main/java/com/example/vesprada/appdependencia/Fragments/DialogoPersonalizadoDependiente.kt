@@ -1,4 +1,4 @@
-package com.example.vesprada.appdependencia.Adapters
+package com.example.vesprada.appdependencia.Fragments
 
 import android.app.AlertDialog
 import android.app.Dialog

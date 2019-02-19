@@ -16,7 +16,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.example.vesprada.appdependencia.Adapters.DialogoPersonalizadoDependiente
+import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*

@@ -68,7 +68,6 @@ class NotificacionesActivity : AppCompatActivity() {
         adapter = Adapter_XAvisoModel(this, listaTareas, recyclerView, findViewById(R.id.lyAvisos))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
     }
 
     fun onClickBotonRojo(v: View){
@@ -94,7 +93,7 @@ class NotificacionesActivity : AppCompatActivity() {
 
     fun finishTask(v: View){
         db.setAvisoFinished(currentId.toInt())
-        val avisoPredicate = { a : XAvisoModel -> a.id === currentId.toInt() }
+        val avisoPredicate = { a : XAvisoModel -> a.id == currentId.toInt() }
         listaTareas.removeIf(avisoPredicate)
         adapter.notifyDataSetChanged()
         cargarPrimeraTarea()
