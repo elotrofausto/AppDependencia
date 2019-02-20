@@ -2,12 +2,14 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/configLayout"
+    android:background="@drawable/patternbg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/patternbg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.ConfiguracionActivity"
-    tools:showIn="@layout/app_bar_configuracion">
+    tools:showIn="@layout/app_bar_configuracion"
+    >
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
@@ -24,13 +26,13 @@
         app:layout_constraintGuide_percent="0.7925636" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvDNI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/Name"
+        android:text="@string/dependentDNI"
+        android:textSize="28sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_dniDependiente"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/ed_dniDependiente" />
@@ -44,21 +46,21 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="textPersonName"
+        android:textSize="28sp"
         android:textColor="@color/black_as_my_soul"
-        android:textSize="24sp"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvPasswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_passwd"
+        android:text="@string/configurationPassword"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_PasswdDependiente"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/ed_PasswdDependiente" />
@@ -79,9 +81,9 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="textPassword"
+        android:textSize="28sp"
         android:textColor="@color/black_as_my_soul"
-        android:textSize="24sp"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/ed_dniDependiente" />
@@ -94,13 +96,13 @@
         app:layout_constraintGuide_percent="0.36" />
 
     <TextView
-        android:id="@+id/tv_conexionAsistente"
+        android:id="@+id/tvAsistente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textSize="28sp"
         android:text="@string/ip_asistente"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_ipAsistente"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/ed_ipAsistente" />
@@ -113,10 +115,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:textSize="28sp"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="@color/black_as_my_soul"
-        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/ed_PasswdDependiente" />
@@ -126,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.9557292" />
 
     <Button
         android:id="@+id/btn_save"
@@ -136,13 +137,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="GuardarOnClick"
+        android:textSize="28sp"
         android:text="Guardar"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancelarCambios"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationconf"
@@ -161,11 +162,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:text="@string/intervalos"
+        android:textSize="28sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black_as_my_soul"
-        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/tv_conexionAsistente" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAsistente" />
 
     <TextView
         android:id="@+id/tv_TimeInterval"
@@ -173,9 +174,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="5"
+        android:textSize="28sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black_as_my_soul"
-        android:textSize="30sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/tv_intervalos"
         app:layout_constraintStart_toEndOf="@+id/tv_intervalos"
@@ -187,9 +188,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/minutes"
+        android:textSize="28sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black_as_my_soul"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_TimeInterval"
         app:layout_constraintStart_toEndOf="@+id/tv_TimeInterval"
         app:layout_constraintTop_toTopOf="@+id/tv_TimeInterval" />
@@ -206,19 +207,5 @@
         app:layout_constraintBottom_toTopOf="@+id/navigationconf"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_alert" />
-
-    <Button
-        android:id="@+id/btn_cancelarCambios"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/conf_call_cancel"
-        android:visibility="gone"
-        android:onClick="CancelarOnClick"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_save" />
 
 </android.support.constraint.ConstraintLayout>

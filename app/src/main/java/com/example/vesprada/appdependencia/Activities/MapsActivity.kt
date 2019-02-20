@@ -2,9 +2,12 @@ package com.example.vesprada.appdependencia.Activities
 
 //import com.google.android.gms.location.places.Places
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -28,6 +31,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private val REQUESTLOCATIONPERMISSION=1
     lateinit var markerPoints : ArrayList<LatLng>
+    private val MYPREFS = "MyPrefs"
+    private val DAYNIGHT = "dayNight"
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +45,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        preferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
+        cambiarModoNocturnoDiurno(preferences.getBoolean(DAYNIGHT, true))
+
+    }
+
+    private fun cambiarModoNocturnoDiurno(b: Boolean){
+
+        if(b){
+            findViewById<ConstraintLayout>(R.id.mapLayout).background = getDrawable(R.drawable.patternbg)
+        } else {
+            findViewById<ConstraintLayout>(R.id.mapLayout).background = getDrawable(R.drawable.patternbg_dark)
+        }
 
     }
 

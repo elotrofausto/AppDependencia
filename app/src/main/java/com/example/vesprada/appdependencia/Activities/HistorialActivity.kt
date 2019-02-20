@@ -1,7 +1,10 @@
 package com.example.vesprada.appdependencia.Activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -30,6 +33,9 @@ class HistorialActivity : AppCompatActivity(){
     lateinit var db : DependenciaDBManager
     lateinit var recyclerView : RecyclerView
     lateinit var adapter : Adapter_XAvisoModel
+    private val MYPREFS = "MyPrefs"
+    private val DAYNIGHT = "dayNight"
+    private lateinit var preferences: SharedPreferences
     companion object {
         lateinit var currentId: Integer
     }
@@ -43,6 +49,7 @@ class HistorialActivity : AppCompatActivity(){
 
         initDB()
         setUI()
+        cambiarModoNocturnoDiurno(preferences.getBoolean(DAYNIGHT, true))
         cargarPrimeraTarea()
     }
 
@@ -51,6 +58,16 @@ class HistorialActivity : AppCompatActivity(){
         listaTareas.addAll(db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1"))
         var listageo : ArrayList<XGeoModel> = ArrayList()
         listageo.addAll(db.getGeoRows(null))
+
+    }
+
+    private fun cambiarModoNocturnoDiurno(b: Boolean){
+
+        if(b){
+            findViewById<ConstraintLayout>(R.id.lyAvisos).background = getDrawable(R.drawable.patternbg)
+        } else {
+            findViewById<ConstraintLayout>(R.id.lyAvisos).background = getDrawable(R.drawable.patternbg_dark)
+        }
 
     }
 
@@ -76,6 +93,7 @@ class HistorialActivity : AppCompatActivity(){
         adapter = Adapter_XAvisoModel(this, listaTareas, recyclerView, findViewById(R.id.lyAvisos))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        preferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
 
     }
 

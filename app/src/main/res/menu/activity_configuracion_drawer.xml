@@ -5,11 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_mod_datos"
+            android:id="@+id/nav_show_hide_password"
+            android:icon="@drawable/ic_passwd"
             android:title="@string/mostrar_ocultar_passwd" />
         <item
-            android:id="@+id/nav_mod_ip_asistente"
-            android:title="@string/cambiar_asistente" />
+            android:id="@+id/nav_day_night_mode"
+            android:icon="@drawable/ic_day_night_mode"
+            android:title="@string/dayNight" />
     </group>
 
     <item android:title="@string/informes">

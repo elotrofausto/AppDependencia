@@ -1,10 +1,12 @@
 package com.example.vesprada.appdependencia.Activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -16,7 +18,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizadoDependiente
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
@@ -30,20 +31,20 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private val DNI = "dni"
     private val PASS = "passwd"
     private val ASISTENTE = "ipasistente"
+    private val DAYNIGHT = "dayNight"
 
     private var passwdVisible=false
 
     lateinit var sharedPreferences: SharedPreferences
 
     lateinit var btnSave : Button
-    lateinit var btnCancel : Button
     lateinit var etDNI: EditText
     lateinit var etPasswd: EditText
     lateinit var ipAsistente: EditText
     lateinit var ultimaIpAsistente : String
+    //lateinit var conflayout: ConstraintLayout
 
     var input_type : Int = 0
-    var editando: Boolean = false
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -86,6 +87,8 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configuracion)
+        findViewById<EditText>(R.id.ed_PasswdDependiente)
+        findViewById<ConstraintLayout>(R.id.configLayout)
         setSupportActionBar(toolbar)
         navigationconf.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigationconf.selectedItemId= R.id.configuracion
@@ -107,6 +110,8 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         setUI()
 
+        cambiarModoNocturnoDiurno(sharedPreferences.getBoolean(DAYNIGHT, true))
+
         if(savedInstanceState!=null){
             restoreUI(savedInstanceState)
         }
@@ -114,10 +119,10 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     private fun setUI() {
         btnSave = findViewById(R.id.btn_save)
-        btnCancel = findViewById(R.id.btn_cancelarCambios)
         etDNI = findViewById(R.id.ed_dniDependiente)
         etPasswd = findViewById(R.id.ed_PasswdDependiente)
         ipAsistente = findViewById(R.id.ed_ipAsistente)
+//        conflayout = findViewById(R.id.confLayout)
 
         input_type = etPasswd.inputType
 
@@ -134,8 +139,31 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         ultimaIpAsistente = bundle.getString("ultimaIpAsistente")
 
         btnSave.visibility=bundle.getInt("botonesVisibles")
-        btnCancel.visibility=bundle.getInt("botonesVisibles")
 
+    }
+
+    private fun cambiarModoNocturnoDiurno(b: Boolean){
+
+        if(b){
+            (etPasswd.parent as ConstraintLayout).background = getDrawable(R.drawable.patternbg)
+            cambiarColorLetra(R.color.black_as_my_soul)
+        } else {
+            //conflayout.setBackgroundResource(R.drawable.patternbg_dark)
+            //findViewById<ConstraintLayout>(R.id.parentContainerConf).background = getDrawable(R.drawable.patternbg_dark)
+            (etPasswd.parent as ConstraintLayout).background = getDrawable(R.drawable.patternbg_dark)
+            cambiarColorLetra(R.color.white)
+
+        }
+
+    }
+
+    private fun cambiarColorLetra(i: Int){
+        tvAsistente.setTextColor(resources.getColor(i, null))
+        tvDNI.setTextColor(resources.getColor(i, null))
+        tvPasswd.setTextColor(resources.getColor(i, null))
+        ed_PasswdDependiente.setTextColor(resources.getColor(i, null))
+        ed_dniDependiente.setTextColor(resources.getColor(i, null))
+        ed_ipAsistente.setTextColor(resources.getColor(i, null))
     }
 
     private fun cargarDatosIniciales() {
@@ -181,24 +209,6 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     }
 
-    //------------------------------------
-    //Puede ser que esto haya que borrarlo
-    //------------------------------------
-    fun CancelarOnClick(v: View){
-
-        ipAsistente.setText(ultimaIpAsistente)
-
-        desacivarCampos()
-
-    }
-
-    private fun desacivarCampos() {
-        btnSave.visibility=View.GONE
-        btnCancel.visibility=View.GONE
-        ipAsistente.isEnabled=false
-        editando=false
-    }
-
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -226,7 +236,7 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_mod_datos->{
+            R.id.nav_show_hide_password->{
 
                 //comprueba que no le haya dado antes a editar
                 if(!passwdVisible) {
@@ -240,20 +250,16 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
                 }
             }
-            R.id.nav_mod_ip_asistente->{
+            R.id.nav_day_night_mode->{
                 //comprueba que no le haya dado antes a editar
-                if(!ipAsistente.isEnabled) {
-                    //Muestra el dialogo que pide la contraseña del dependiente
-                    val fm = supportFragmentManager
-                    var dialog = DialogoPersonalizadoDependiente()
 
-                    //Para que active los campos de edición del dependiente hay que pasar un '1' como primer paramentro
+                val editor = sharedPreferences.edit()
 
-                    dialog.DependienteOAsistente(2, "4321")
-                    dialog.show(fm, "Patata")
-                } else {
-                    Toast.makeText(this, getString(R.string.ya_esta_editando), Toast.LENGTH_LONG).show()
-                }
+                editor.putBoolean(DAYNIGHT, !sharedPreferences.getBoolean(DAYNIGHT, false))
+                editor.commit()
+
+                cambiarModoNocturnoDiurno(sharedPreferences.getBoolean(DAYNIGHT, true))
+
             }
             R.id.nav_informe_medicamentos->{
                 Toast.makeText(this, "Imprimendo informe medicamentos", Toast.LENGTH_LONG).show()

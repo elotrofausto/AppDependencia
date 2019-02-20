@@ -5,9 +5,11 @@ import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
@@ -27,12 +29,15 @@ class RedButtonActivity : AppCompatActivity() {
     private val REQUEST_LOCATION_PERMISSION = 1234
     private val REQUEST_CONTACTS = 1
     private val MYPREFS = "MyPrefs"
+    private val DAYNIGHT = "dayNight"
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_red_button)
         setUI()
+        cambiarModoNocturnoDiurno(preferences.getBoolean(DAYNIGHT, true))
         getPermissions()
         initJob()
     }
@@ -40,6 +45,16 @@ class RedButtonActivity : AppCompatActivity() {
     fun setUI(){
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId= R.id.emergencias
+        preferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
+    }
+    private fun cambiarModoNocturnoDiurno(b: Boolean){
+
+        if(b){
+            findViewById<ConstraintLayout>(R.id.container).background = getDrawable(R.drawable.patternbg)
+        } else {
+            findViewById<ConstraintLayout>(R.id.container).background = getDrawable(R.drawable.patternbg_dark)
+        }
+
     }
 
     fun getPermissions(){
@@ -145,24 +160,24 @@ class RedButtonActivity : AppCompatActivity() {
 
                 var intent = Intent(this, NotificacionesActivity::class.java)
                 startActivity(intent)
-                //finish()
+                finish()
             }
             R.id.eventos -> {
 
                 var intent = Intent(this, HistorialActivity::class.java)
                 startActivity(intent)
-                //finish()
+                finish()
             }
             R.id.googlemap -> {
 
                 var intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
-                //finish()
+                finish()
             }
             R.id.configuracion -> {
                 var intent = Intent(this, ConfiguracionActivity::class.java)
                 startActivity(intent)
-                //finish()
+                finish()
             }
         }
         false

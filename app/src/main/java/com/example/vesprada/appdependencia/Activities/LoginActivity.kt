@@ -89,6 +89,10 @@ class LoginActivity : AppCompatActivity() {
                 println("oops! No se puede conectar. Error: " + se.toString())
             } catch (e: ClassNotFoundException) {
                 println("oops! No se encuentra la clase. Error: " + e.message)
+            }catch (e: RuntimeException){
+                println("oops! No hay conexión a la base de datos, se va a iniciar en modo sin conexión")
+                val intent = Intent(context, OfflineRedButtonActivity::class.java)
+                context.startActivity(intent)
             }
 
             return correctLogin

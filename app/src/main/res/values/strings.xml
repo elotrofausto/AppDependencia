@@ -40,19 +40,19 @@
     <string name="tvEmptyList">The list is empty</string>
     <string name="title_activity_configuracion" translatable="false">ConfiguracionActivity</string>
     <string name="dependentDNI">DNI</string>
-    <string name="ip_asistente">Asistente</string>
+    <string name="ip_asistente">Assistent</string>
     <string name="informes">Reports</string>
     <string name="mostrar_ocultar_passwd">Show/Hide Password</string>
-    <string name="cambiar_asistente">Change Assistent</string>
+    <string name="dayNight">Change Day/Night Mode</string>
     <string name="informe_medicamentos">Print Medicines Report</string>
     <string name="informe_tareas_varias">Print General Tasks Report</string>
     <string name="ya_esta_editando">You are still editing</string>
     <string name="introducir_userpasswd_hint">Password</string>
     <string name="titulo_dependiente">Insert Dependent Password</string>
-    <string name="continuar">Continue</string>
+    <string name="alert_dialog_ok">Ok</string>
     <string name="correct_password">Correct Password</string>
     <string name="incorrect_password">Incorrect Password</string>
-    <string name="titulo_asistente">Insert Assistent Password</string>
+    <string name="titulo_alert_dialog">ERROR!</string>
     <string name="app_dependencia_nombre">App Dependencia</string>
     <string name="nombre_grupo">Group 2</string>
     <string name="intervalos">Sends GPS information each</string>
@@ -75,7 +75,7 @@
     <string name="btRecent">View Recent</string>
     <string name="EmptyHistory">History is empty</string>
     <string name="location_permission_denied">Location access permission is required</string>
-    <string name="alertDialogMessage">Do you want to leave without saving?</string>
+    <string name="alertDialogMessage">There is no conection, the application initialized in Offline mode.\nThe Red Buttons may not work so call to your assistent inmediatly</string>
     <string name="yesAlert">yes</string>
     <string name="configurationPassword">Password</string>
     <string name="no_hay_ip_asistente">There isn\'t an Assistant IP, please introduce one</string>
