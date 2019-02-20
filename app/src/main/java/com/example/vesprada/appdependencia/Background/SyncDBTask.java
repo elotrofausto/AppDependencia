@@ -36,7 +36,6 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        //TODO check if user & pass are correct or launch after login
         try {
             PostgresDBConnection instance = PostgresDBConnection.getInstance();
             Connection conn = instance.getConnection();
@@ -60,16 +59,19 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
         if (rs != null){
             while (rs.next()) {
                 System.out.println("SYNC:" + rs.getString(3));
-                db.insertAviso(new XAvisoModel(
-                        rs.getInt(rs.findColumn("id")),
-                        user,
-                        rs.getString(rs.findColumn("tipo")),
-                        rs.getString(rs.findColumn("name")),
-                        rs.getDate(rs.findColumn("fec_desde")),
-                        rs.getDate(rs.findColumn("fec_hasta")),
-                        rs.getString(rs.findColumn("periodicidad"))
-                ));
-                idList.add(rs.getInt(rs.findColumn("id"))); //Guardamos los ids que se han innsertado en nuestra SQLite
+                for (int i = 0; i<rs.getInt(rs.findColumn("tomas")); i++) {
+                    db.insertAviso(new XAvisoModel(
+                            rs.getInt(rs.findColumn("id")),
+                            rs.getInt(rs.findColumn("id")),
+                            user,
+                            rs.getString(rs.findColumn("tipo")),
+                            rs.getString(rs.findColumn("name")),
+                            rs.getDate(rs.findColumn("fec_desde")),
+                            rs.getDate(rs.findColumn("fec_hasta")),
+                            rs.getString(rs.findColumn("periodicidad"))
+                    ));
+                }
+                    idList.add(rs.getInt(rs.findColumn("id"))); //Guardamos los ids de los avisos que se han insertado en nuestra SQLite
             }
         }
 
@@ -84,15 +86,36 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
 
     private void SQLiteToServer(Connection conn) throws SQLException {
         //Actualizamos los avisos finalizados en Postgres para que los asistentes tengan constancia
+        PreparedStatement updatePst = conn.prepareStatement(UPDATEFINISHED);
         List<XAvisoModel> listaAcabados = db.getAvisoRows(DependenciaDBContract.Aviso.FINALIZADO + " = 1");
+
+        conn.setAutoCommit(false);
         for (XAvisoModel aviso: listaAcabados) {
-            int id = aviso.getId();
-            PreparedStatement updatePst = conn.prepareStatement(UPDATEFINISHED);
+            int id = aviso.getAvisoID();
             updatePst.setInt(1,id);
-            updatePst.executeUpdate();
-            db.setAvisoSynced(id);
+            updatePst.addBatch();
+            db.setAvisoSynced(aviso.getId());
         }
+
+        try{
+            updatePst.executeBatch();
+            conn.commit();
+        } catch (SQLException e) {
+            Log.i("POSTGRESQL","Error en batch update. Se procede a hacer un rollback()" + e.getMessage());
+            conn.rollback();
+            rollBackSQLite(listaAcabados);
+        }finally {
+            conn.setAutoCommit(true);
+        }
+
         Log.i(SYNCTAG,"Avisos sincronizados en la base de datos remota Postgres");
+    }
+
+    private void rollBackSQLite(List<XAvisoModel> listaMarcados){
+        for (XAvisoModel aviso: listaMarcados) {
+            //Si hay rollback devolvemos los avisos a estado finalizado, pero no sincronizado con Postgres
+            db.setAvisoFinished(aviso.getId());
+        }
     }
 
 }

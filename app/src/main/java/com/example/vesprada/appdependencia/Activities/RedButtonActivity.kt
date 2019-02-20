@@ -3,6 +3,9 @@ package com.example.vesprada.appdependencia.Activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,7 +20,6 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Toast
-import com.example.vesprada.appdependencia.Background.BootReceiver
 import com.example.vesprada.appdependencia.Background.PanicButton
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
@@ -29,6 +31,8 @@ class RedButtonActivity : AppCompatActivity() {
     private val REQUEST_LOCATION_PERMISSION = 1234
     private val REQUEST_CONTACTS = 1
     private val MYPREFS = "MyPrefs"
+    private val JOB_ID = 1235
+    private val PERIOD_MS: Long = 500
     private val DAYNIGHT = "dayNight"
     private lateinit var preferences: SharedPreferences
 
@@ -93,8 +97,14 @@ class RedButtonActivity : AppCompatActivity() {
 
     private fun initJob() {
         if (!isMyServiceRunning(SaveLocationService::class.java)){
-            var bootReceiver = BootReceiver()
-            bootReceiver.scheduleJob(this)
+            val serviceComponent = ComponentName(this, SaveLocationService::class.java)
+            val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+            jobScheduler.schedule(JobInfo.Builder(JOB_ID, serviceComponent)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setMinimumLatency(PERIOD_MS)
+                    .setOverrideDeadline(PERIOD_MS)
+                    .setPersisted(true)
+                    .build())
         }
     }
 

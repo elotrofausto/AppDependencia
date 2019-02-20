@@ -2,7 +2,6 @@ package com.example.vesprada.appdependencia.Background;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -13,7 +12,6 @@ import com.google.android.gms.location.LocationServices;
 
 public class SaveLocationService extends JobService {
 
-    private Location mLastLocation;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
 
@@ -29,7 +27,7 @@ public class SaveLocationService extends JobService {
             }
         };
         startTrackingLocation();
-        jobFinished(params,true);
+        //jobFinished(params,true);
         return true;
     }
 
@@ -50,7 +48,7 @@ public class SaveLocationService extends JobService {
     private LocationRequest getLocationRequest(){
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(1000 * 60);
+        locationRequest.setFastestInterval(1000 * 60 * 3);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return locationRequest;
     }

@@ -33,7 +33,7 @@ public class DependenciaDBManager {
 
         if (sqLiteDatabase != null){
             ContentValues contentValue = new ContentValues();
-
+            contentValue.put(DependenciaDBContract.Aviso.AVISO_ID, aviso.getAvisoID());
             contentValue.put(DependenciaDBContract.Aviso.DNI, aviso.getDependienteDNI());
             contentValue.put(DependenciaDBContract.Aviso.TIPO, aviso.getTipo());
             contentValue.put(DependenciaDBContract.Aviso.NOMBRE, aviso.getName());
@@ -91,6 +91,7 @@ public class DependenciaDBManager {
 
         if (sqLiteDatabase != null){
             String[] projection = new String[]{DependenciaDBContract.Aviso._ID,
+                    DependenciaDBContract.Aviso.AVISO_ID,
                     DependenciaDBContract.Aviso.DNI,
                     DependenciaDBContract.Aviso.TIPO,
                     DependenciaDBContract.Aviso.NOMBRE,
@@ -117,6 +118,7 @@ public class DependenciaDBManager {
                 hasta = new Date(sHasta);
 
                 listaAvisos.add(new XAvisoModel(cursor.getInt(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso._ID)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.AVISO_ID)),
                         cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.DNI)),
                         cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.TIPO)),
                         cursor.getString(cursor.getColumnIndexOrThrow(DependenciaDBContract.Aviso.NOMBRE)),
@@ -186,6 +188,15 @@ public class DependenciaDBManager {
         }
 
         return listaGeo;
+    }
+
+    public void deleteGeo(String having){
+        //open database to read and write
+        SQLiteDatabase sqLiteDatabase = todoListDBHelper.getWritableDatabase();
+
+        if (sqLiteDatabase != null){
+            sqLiteDatabase.delete(DependenciaDBContract.Geo.TABLE_NAME, having, null);
+        }
     }
 
 

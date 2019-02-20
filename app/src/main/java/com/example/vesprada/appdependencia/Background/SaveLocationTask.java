@@ -84,10 +84,12 @@ public class SaveLocationTask extends AsyncTask<Location, Void, Location> {
         try{
             updatePst.executeBatch();
             conn.commit();
+            //Solamente se borraran los registros del SQLite si se ha superado con éxito el commit
+            db.deleteGeo(null);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.i("POSTGRESQL","Error en batch update. Se procede a hacer un rollback()" + e.getMessage());
+            conn.rollback();
         }finally {
-            //TODO eliminar de SQLite
             conn.setAutoCommit(true);
         }
     }

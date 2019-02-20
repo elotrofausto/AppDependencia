@@ -8,6 +8,7 @@ public class XAvisoModel  implements java.io.Serializable {
 
 
     private int id;
+    private int avisoID;
     private String dependienteDNI;
     private String tipo;
     private String name;
@@ -19,8 +20,9 @@ public class XAvisoModel  implements java.io.Serializable {
 
     }
 
-    public XAvisoModel(int id, String dependienteDNI, String tipo, String name, Date fecDesde, Date fecHasta, String periodicidad) {
+    public XAvisoModel(int id, int avisoID, String dependienteDNI, String tipo, String name, Date fecDesde, Date fecHasta, String periodicidad) {
         this.id = id;
+        this.avisoID = avisoID;
         this.dependienteDNI = dependienteDNI;
         this.tipo = tipo;
         this.name = name;
@@ -29,8 +31,9 @@ public class XAvisoModel  implements java.io.Serializable {
         this.periodicidad = periodicidad;
     }
 
-    public XAvisoModel(int id, String dependienteDNI, String tipo, String name, Date fecDesde, Date fecHasta, String periodicidad, Integer createUid, Date createDate, Integer writeUid, Date writeDate) {
+    public XAvisoModel(int id, int avisoID, String dependienteDNI, String tipo, String name, Date fecDesde, Date fecHasta, String periodicidad, Integer createUid, Date createDate, Integer writeUid, Date writeDate) {
         this.id = id;
+        this.avisoID = avisoID;
         this.dependienteDNI = dependienteDNI;
         this.tipo = tipo;
         this.name = name;
@@ -99,6 +102,14 @@ public class XAvisoModel  implements java.io.Serializable {
 
     public void setDependienteDNI(String dependienteDNI) {
         this.dependienteDNI = dependienteDNI;
+    }
+
+    public int getAvisoID() {
+        return avisoID;
+    }
+
+    public void setAvisoID(int avisoID) {
+        this.avisoID = avisoID;
     }
 
     @Override
