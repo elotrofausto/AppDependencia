@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Activities.SplashInitActivity">
+        <activity android:name=".Activities.SplashInitActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,16 +44,23 @@
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Activities.NotificacionesActivity" />
-        <activity android:name=".Activities.RedButtonActivity" />
-        <activity android:name=".Activities.HistorialActivity" />
-        <activity android:name=".Activities.ActivityLlamada" />
-        <activity android:name=".Activities.SplashLoadingActivity" />
-        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.NotificacionesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.RedButtonActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.HistorialActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ActivityLlamada"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SplashLoadingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ConfiguracionActivity"
             android:label="@string/title_activity_configuracion"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"></activity>
 
         <service
             android:name=".Background.SyncService"

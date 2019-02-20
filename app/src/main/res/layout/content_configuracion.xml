@@ -28,14 +28,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/nombreDependiente"
+        android:text="@string/dependentDNI"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/ed_nombreDependiente"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_dniDependiente"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/ed_nombreDependiente" />
+        app:layout_constraintTop_toTopOf="@+id/ed_dniDependiente" />
 
     <EditText
-        android:id="@+id/ed_nombreDependiente"
+        android:id="@+id/ed_dniDependiente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -43,6 +43,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:enabled="false"
+        android:textColor="@color/black_as_my_soul"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -53,11 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_passwd"
+        android:text="@string/configurationPassword"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/ed_passwdDependiente"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_PasswdDependiente"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/ed_passwdDependiente" />
+        app:layout_constraintTop_toTopOf="@+id/ed_PasswdDependiente" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
@@ -67,7 +68,7 @@
         app:layout_constraintGuide_percent="0.04" />
 
     <EditText
-        android:id="@+id/ed_passwdDependiente"
+        android:id="@+id/ed_PasswdDependiente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -75,10 +76,11 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:enabled="false"
+        android:textColor="@color/black_as_my_soul"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/ed_nombreDependiente" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_dniDependiente" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -110,7 +112,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/ed_passwdDependiente" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_PasswdDependiente" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"

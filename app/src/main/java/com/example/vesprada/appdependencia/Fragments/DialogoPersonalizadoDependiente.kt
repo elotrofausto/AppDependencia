@@ -25,11 +25,7 @@ class DialogoPersonalizadoDependiente : DialogFragment() {
 
         val edPasswd = view.findViewById<EditText>(R.id.et_checkPassword)
 
-        if(!asistente){
-            titulo = getString(R.string.titulo_dependiente)
-        } else {
-            titulo = getString(R.string.titulo_asistente)
-        }
+        titulo = getString(R.string.titulo_asistente)
 
         builder.setView(view)
                 .setTitle(titulo)
@@ -48,8 +44,8 @@ class DialogoPersonalizadoDependiente : DialogFragment() {
                     if(asistente){
                         activity!!.findViewById<View>(R.id.ed_ipAsistente).isEnabled=true
                     } else {
-                        activity!!.findViewById<View>(R.id.ed_nombreDependiente).isEnabled = true
-                        activity!!.findViewById<View>(R.id.ed_passwdDependiente).isEnabled = true
+                        activity!!.findViewById<View>(R.id.ed_dniDependiente).isEnabled = true
+                        activity!!.findViewById<View>(R.id.ed_PasswdDependiente).isEnabled = true
                     }
                     activity!!.findViewById<View>(R.id.btn_save).visibility = View.VISIBLE
                     activity!!.findViewById<View>(R.id.btn_cancelarCambios).visibility = View.VISIBLE
@@ -70,8 +66,7 @@ class DialogoPersonalizadoDependiente : DialogFragment() {
 
         when(int){
             1-> {
-                //titulo = getString(R.string.titulo_dependiente)
-                titulo = "hola"
+
                 asistente = false
             }
             2-> {
