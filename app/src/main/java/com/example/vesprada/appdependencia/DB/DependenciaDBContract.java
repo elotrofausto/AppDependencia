@@ -22,6 +22,7 @@ public class DependenciaDBContract {
 
         //Column names
         public static final String _ID = "_id";
+        public static final String AVISO_ID = "avisoid";
         public static final String DNI = "dni";
         public static final String TIPO = "tipo";
         public static final String NOMBRE = "nombre";
@@ -35,6 +36,7 @@ public class DependenciaDBContract {
         public static final String CREATE_TABLE = "CREATE TABLE " + Aviso.TABLE_NAME
                 + " ("
                 + Aviso._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Aviso.AVISO_ID + " INTEGER,"
                 + Aviso.DNI + " TEXT NOT NULL, "
                 + Aviso.TIPO + " TEXT NOT NULL, "
                 + Aviso.NOMBRE + " TEXT NOT NULL, "
