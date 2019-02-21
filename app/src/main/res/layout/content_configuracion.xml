@@ -166,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="5"
+        android:text="10"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black_as_my_soul"
         android:textStyle="italic"
