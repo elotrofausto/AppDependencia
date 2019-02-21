@@ -18,6 +18,7 @@
         android:layout_marginBottom="8dp"
         android:max="10"
         android:progress="10"
+        android:tag="activityLlamada"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.562"

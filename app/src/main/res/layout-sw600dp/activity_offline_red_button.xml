@@ -17,6 +17,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/btn_rojo550x550"
         android:onClick="onClickBotonRojo"
+        android:tag="botonRojoOffline"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintHorizontal_bias="0.505"

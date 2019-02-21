@@ -20,10 +20,9 @@
     <string name="tv_DNI">Dependent ID</string>
     <string name="tv_dependent_name">Dependent\'s name</string>
     <string name="tv_email">E-mail</string>
-    <string name="tv_passwd">Confirm\nPassword</string>
+    <string name="tv_passwd">Password</string>
     <string name="bt_login">Log In</string>
     <string name="bt_ok">OK</string>
-    <string name="Name"></string>
     <string name="bt_cancel">Cancel</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_alerts">Alerts</string>
@@ -39,7 +38,7 @@
     <string name="tbAll">View All</string>
     <string name="tvEmptyList">The list is empty</string>
     <string name="title_activity_configuracion" translatable="false">ConfiguracionActivity</string>
-    <string name="dependentDNI">DNI</string>
+    <string name="dependentDNI" translatable="false">DNI</string>
     <string name="ip_asistente">Assistent</string>
     <string name="informes">Reports</string>
     <string name="mostrar_ocultar_passwd">Show/Hide Password</string>
@@ -53,8 +52,8 @@
     <string name="correct_password">Correct Password</string>
     <string name="incorrect_password">Incorrect Password</string>
     <string name="titulo_alert_dialog">ERROR!</string>
-    <string name="app_dependencia_nombre">App Dependencia</string>
-    <string name="nombre_grupo">Group 2</string>
+    <string name="app_dependencia_nombre" translatable="false">App Dependencia</string>
+    <string name="nombre_grupo" translatable="false">Group 2</string>
     <string name="intervalos">Sends GPS information each</string>
     <string name="minutes">minutes</string>
     <string name="MedicinesDocument">MedicinesListReport</string>
@@ -76,7 +75,7 @@
     <string name="EmptyHistory">History is empty</string>
     <string name="location_permission_denied">Location access permission is required</string>
     <string name="alertDialogMessage">There is no conection, the application initialized in Offline mode.\nThe Red Buttons may not work so call to your assistent inmediatly</string>
-    <string name="yesAlert">yes</string>
+    <string name="yesAlert">Yes</string>
     <string name="configurationPassword">Password</string>
     <string name="no_hay_ip_asistente">There isn\'t an Assistant IP, please introduce one</string>
     <string name="notification_id_channel">New notifications</string>
