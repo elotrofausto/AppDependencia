@@ -164,6 +164,9 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         ed_PasswdDependiente.setTextColor(resources.getColor(i, null))
         ed_dniDependiente.setTextColor(resources.getColor(i, null))
         ed_ipAsistente.setTextColor(resources.getColor(i, null))
+        tv_intervalos.setTextColor(resources.getColor(i, null))
+        tv_TimeInterval.setTextColor(resources.getColor(i, null))
+        tv_Minutes.setTextColor(resources.getColor(i, null))
     }
 
     private fun cargarDatosIniciales() {
