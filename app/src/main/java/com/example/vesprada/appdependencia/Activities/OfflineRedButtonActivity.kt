@@ -2,11 +2,10 @@ package com.example.vesprada.appdependencia.Activities
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import com.example.vesprada.appdependencia.Background.PanicButton
 import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizado
 import com.example.vesprada.appdependencia.R
 
@@ -22,7 +21,7 @@ class OfflineRedButtonActivity : AppCompatActivity() {
         val fm = supportFragmentManager
         var dialog = DialogoPersonalizado()
 
-        dialog.show(fm, "Patata")
+        dialog.show(fm, "")
 
     }
 
@@ -51,7 +50,7 @@ class OfflineRedButtonActivity : AppCompatActivity() {
 
     fun onClickBotonRojo(v: View){
 
-        var pb : PanicButton.PanicButtonTask = PanicButton.PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
+        var pb : ActivityLlamada.PanicButtonTask = ActivityLlamada.PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
         pb.execute()
 
         var intent = Intent(this, ActivityLlamada::class.java);

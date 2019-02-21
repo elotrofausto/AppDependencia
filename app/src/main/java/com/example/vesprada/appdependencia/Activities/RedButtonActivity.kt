@@ -12,6 +12,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
@@ -32,14 +33,15 @@ class RedButtonActivity : AppCompatActivity() {
     private val REQUEST_CONTACTS = 1
     private val MYPREFS = "MyPrefs"
     private val JOB_ID = 1235
-    private val PERIOD_MS: Long = 500
+    private val PERIOD_MS: Long = 1000 * 60 * 10
     private val DAYNIGHT = "dayNight"
     private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_red_button)
+        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().build())
         setUI()
         cambiarModoNocturnoDiurno(preferences.getBoolean(DAYNIGHT, true))
         getPermissions()
@@ -96,26 +98,13 @@ class RedButtonActivity : AppCompatActivity() {
     }
 
     private fun initJob() {
-        if (!isMyServiceRunning(SaveLocationService::class.java)){
             val serviceComponent = ComponentName(this, SaveLocationService::class.java)
             val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
             jobScheduler.schedule(JobInfo.Builder(JOB_ID, serviceComponent)
                     .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setMinimumLatency(PERIOD_MS)
-                    .setOverrideDeadline(PERIOD_MS)
+                    .setMinimumLatency(1000)
                     .setPersisted(true)
                     .build())
-        }
-    }
-
-    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
-        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.name == service.service.className) {
-                return true
-            }
-        }
-        return false
     }
 
     fun onClickLlamadas(v: View){
@@ -150,10 +139,6 @@ class RedButtonActivity : AppCompatActivity() {
     }
 
     fun onClickBotonRojo(v: View){
-
-            var pb : PanicButton.PanicButtonTask = PanicButton.PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
-            pb.execute()
-
             var intent = Intent(this, ActivityLlamada::class.java);
             Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
             startActivity(intent)

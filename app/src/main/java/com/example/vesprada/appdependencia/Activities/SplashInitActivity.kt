@@ -1,9 +1,12 @@
 package com.example.vesprada.appdependencia.Activities
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -30,7 +33,7 @@ class SplashInitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initsplash)
-
+        createChannel()
         comprobarInicio()
     }
 
@@ -45,6 +48,21 @@ class SplashInitActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    fun createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_id_channel)
+            val description = getString(R.string.notification_id_channel)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(getString(R.string.notification_id_channel), name, importance)
+            channel.description = description
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
+        }
+
     }
 
     //static class for AsyncTask
@@ -79,7 +97,7 @@ class SplashInitActivity : AppCompatActivity() {
                 println("oops! No se puede conectar. Error: " + se.toString())
             } catch (e: ClassNotFoundException) {
                 println("oops! No se encuentra la clase. Error: " + e.message)
-            } catch (e: RuntimeException){
+            } catch (e: Exception){
                 println("oops! No hay conexión a la base de datos, se va a iniciar en modo sin conexión")
                 val intent = Intent(context, OfflineRedButtonActivity::class.java)
                 context.startActivity(intent)
@@ -114,6 +132,7 @@ class SplashInitActivity : AppCompatActivity() {
         }
 
     }
+
 
 }
 

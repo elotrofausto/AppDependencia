@@ -1,13 +1,25 @@
 package com.example.vesprada.appdependencia.Background;
 
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
+import com.example.vesprada.appdependencia.Activities.SplashLoadingActivity;
 import com.example.vesprada.appdependencia.DB.DependenciaDBContract;
 import com.example.vesprada.appdependencia.DB.DependenciaDBManager;
 import com.example.vesprada.appdependencia.DB.PostgresDBConnection;
 import com.example.vesprada.appdependencia.Models.XAvisoModel;
+import com.example.vesprada.appdependencia.R;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,13 +29,13 @@ import java.util.List;
 
 public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
 
-    private static final String GETAVISOS = "SELECT * FROM x_aviso_model WHERE id_dependiente = (SELECT id_dependiente FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = ?) AND password =?) AND recibido != true";
+    private static final String GETAVISOS = "SELECT * FROM x_aviso_model WHERE id_dependiente = (SELECT id FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = ?) AND password =?) AND recibido != true";
     private static final String UPDATERECEIVED = "UPDATE x_aviso_model SET recibido = True WHERE id = ?";
     private static final String UPDATEFINISHED = "UPDATE x_aviso_model SET tomas = tomas - 1 WHERE id = ?";
 
     private static final String SYNCTAG = "SYNCBDSERVICE";
-    private static Boolean correctSync = false;
     private DependenciaDBManager db;
+    private Context context;
     private String user;
     private String pass;
 
@@ -31,6 +43,7 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
     public SyncDBTask(String user, String pass, Context context){
         this.user = user;
         this.pass = pass;
+        this.context = context;
         this.db = new DependenciaDBManager(context);
     }
 
@@ -81,7 +94,49 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
             updatePst.setInt(1,num);
             updatePst.executeUpdate();
         }
+        if (!idList.isEmpty() && isAppRunning(context,context.getPackageName())){
+            sendNotification();
+        }
         Log.i(SYNCTAG,"Avisos sincronizados en la base de datos local SQLite");
+    }
+
+    private void sendNotification() {
+        NotificationManager notificationManager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent = new Intent(context, SplashLoadingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_sync_black_24dp);
+        PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            Notification notification = new Notification.Builder(context,
+                   context.getResources().getString(R.string.notification_id_channel))
+                    .setContentTitle(context.getString(R.string.NewNotifications))
+                    .setContentText(context.getString(R.string.CheckApp))
+                    .setLargeIcon(bitmap)
+                    .setSmallIcon(R.drawable.ic_sync_black_24dp)
+                    .setContentIntent(pIntent)
+                    .setAutoCancel(true)
+                    .build();
+            try{
+                if (notificationManager != null) {
+                    notificationManager.notify(0, notification);
+                }
+            }catch (Exception e){
+                Log.i("NOTIFICATION",e.getMessage());
+            }
+    }
+
+    public boolean isAppRunning(final Context context, final String packageName) {
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+        if (procInfos != null)
+        {
+            for (final ActivityManager.RunningAppProcessInfo processInfo : procInfos) {
+                if (processInfo.processName.equals(packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void SQLiteToServer(Connection conn) throws SQLException {

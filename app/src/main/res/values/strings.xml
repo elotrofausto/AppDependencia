@@ -79,4 +79,7 @@
     <string name="yesAlert">yes</string>
     <string name="configurationPassword">Password</string>
     <string name="no_hay_ip_asistente">There isn\'t an Assistant IP, please introduce one</string>
+    <string name="notification_id_channel">New notifications</string>
+    <string name="NewNotifications">New notifications</string>
+    <string name="CheckApp">Check your app to read the new notifications received</string>
 </resources>
