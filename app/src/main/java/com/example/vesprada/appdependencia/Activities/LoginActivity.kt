@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.example.vesprada.appdependencia.DB.PostgresDBConnection
 import com.example.vesprada.appdependencia.R
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginTask: LoginTask
     companion object {
         var loginPb: ProgressBar? = null
+        var tvlog: TextView? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
         dni = findViewById(R.id.et_DependentDNI)
         passwd = findViewById(R.id.et_password)
         loginPb = findViewById(R.id.loginPb)
+        tvlog = findViewById(R.id.tvlog)
     }
 
     fun clickEvent(v : View){
@@ -55,6 +58,11 @@ class LoginActivity : AppCompatActivity() {
 
         loginTask = LoginTask(dni.text.toString(), passwd.text.toString(), this)
         findViewById<ProgressBar>(R.id.loginPb).visibility = View.VISIBLE
+        loginTask.execute()
+    }
+
+    fun testLogin(dni: String, pass: String){
+        loginTask = LoginTask(dni, pass, this)
         loginTask.execute()
     }
 
@@ -108,10 +116,12 @@ class LoginActivity : AppCompatActivity() {
             loginPb!!.visibility = View.INVISIBLE
             if (result!!) {
                 Toast.makeText(context, "AUTENTICACIÓN CORRECTA", Toast.LENGTH_LONG).show()
+                tvlog!!.tag="LoginCorrect"
                 lanzarSplashActivity()
                 (context as Activity).finish()
             } else {
                 Toast.makeText(context, "ERROR DE AUTENTICACIÖN", Toast.LENGTH_LONG).show()
+                tvlog!!.text = "LoginIncorrect"
             }
         }
 

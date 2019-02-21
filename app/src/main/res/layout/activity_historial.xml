@@ -122,13 +122,13 @@
         android:onClick="onToggleClick"
         android:textOff="@string/btArchive"
         android:textOn="@string/btRecent"
-        app:layout_constraintBottom_toTopOf="@+id/btEmergencyBig"
+        app:layout_constraintBottom_toTopOf="@+id/btEmergencyBig3"
         app:layout_constraintEnd_toEndOf="@+id/lvTasks"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/btEmergencyBig"
+        android:id="@+id/btEmergencyBig3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -136,6 +136,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:onClick="onClickBotonRojo"
+        android:tag="historialRedButton"
         app:layout_constraintBottom_toTopOf="@+id/navigationH"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

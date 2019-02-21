@@ -51,12 +51,14 @@ class RedButtonActivity : AppCompatActivity() {
         navigation.selectedItemId= R.id.emergencias
         preferences = getSharedPreferences(MYPREFS, Context.MODE_PRIVATE)
     }
-    private fun cambiarModoNocturnoDiurno(b: Boolean){
+    fun cambiarModoNocturnoDiurno(b: Boolean) : Boolean{
 
         if(b){
             findViewById<ConstraintLayout>(R.id.container).background = getDrawable(R.drawable.patternbg)
+            return true
         } else {
             findViewById<ConstraintLayout>(R.id.container).background = getDrawable(R.drawable.patternbg_dark)
+            return false
         }
 
     }
@@ -170,24 +172,24 @@ class RedButtonActivity : AppCompatActivity() {
 
                 var intent = Intent(this, NotificacionesActivity::class.java)
                 startActivity(intent)
-                finish()
+                //finish()
             }
             R.id.eventos -> {
 
                 var intent = Intent(this, HistorialActivity::class.java)
                 startActivity(intent)
-                finish()
+                //finish()
             }
             R.id.googlemap -> {
 
                 var intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
-                finish()
+                //finish()
             }
             R.id.configuracion -> {
                 var intent = Intent(this, ConfiguracionActivity::class.java)
                 startActivity(intent)
-                finish()
+                //finish()
             }
         }
         false

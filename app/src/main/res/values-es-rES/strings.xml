@@ -4,10 +4,10 @@
     <string name="tv_DNI">DNI del dependiente</string>
     <string name="tv_dependent_name">Nombre del dependiente</string>
     <string name="tv_email">Correo electrónico</string>
-    <string name="tv_passwd">Confirmar\nContraseña</string>
+    <string name="tv_passwd">Contraseña</string>
     <string name="bt_login">Iniciar Sesión</string>
     <string name="bt_ok">VALE</string>
-    <string name="bt_cancel">CANCELAR</string>
+    <string name="bt_cancel">Cancelar</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="title_activity_login">Iniciar sesión</string>
     <string name="title_activity_alerts">Alertas</string>
@@ -17,14 +17,13 @@
     <string name="map">Mapa</string>
     <string name="title_notifications">Notificaciones</string>
     <string name="action_settings">Opciones</string>
-    <string name="contacts_read_right_required">Permissions needed to keep working</string>
+    <string name="contacts_read_right_required">Se requieren permisos para seguir funcionando</string>
     <string name="conf_call_red">Va a recibir una llamada</string>
     <string name="conf_call_green">Si no puede responder, la ayuda se desplazará hacia usted</string>
     <string name="conf_call_black">Si desea cancelar la llamada, arrastre la barra hacia el CANCELAR</string>
     <string name="conf_call_cancel">Cancelar</string>
     <string name="llamadaCancelada">Llamada cancelada correctamente</string>
     <string name="llamandoEmergencias">Contactando con los servicios de emergencia</string>
-    <string name="dependentDNI">DNI</string>
     <string name="ip_asistente">Asistente</string>
     <string name="informes">Informes</string>
     <string name="mostrar_ocultar_passwd">Mostrar/Ocultar Contraseña</string>
@@ -36,10 +35,8 @@
     <string name="titulo_dependiente">Insertar contraseña del Dependiente</string>
     <string name="alert_dialog_ok">De acuerdo</string>
     <string name="correct_password">Contraseña Correcta</string>
-    <string name="incorrect_password">Contraseña incorrecta</string>
+    <string name="incorrect_password">Contraseña Incorrecta</string>
     <string name="titulo_alert_dialog">ERROR!</string>
-    <string name="app_dependencia_nombre">App Dependencia</string>
-    <string name="nombre_grupo">Group 2</string>
     <string name="intervalos">Envía información del GPS cada</string>
     <string name="minutes">minutos</string>
     <string name="tbMedic">Ver Medicinas</string>
@@ -64,8 +61,7 @@
     <string name="EmptyHistory">El historial está vacío</string>
     <string name="location_permission_denied">Se requieren permisos de acceso a la localización</string>
     <string name="alertDialogMessage">No hay conexión, la aplicación se ha iniciado en modo Desconectado. El Botón Rojo puede que no funcione por lo que llame a su asistente inmediatamente</string>
-    <string name="yesAlert">yes</string>
-    <string name="configurationPassword">Password</string>
-    <string name="Name"></string>
+    <string name="yesAlert">Si</string>
+    <string name="configurationPassword">Contraseña</string>
     <string name="no_hay_ip_asistente">No hay IP del Asistente, por favor introduzca una</string>
 </resources>
