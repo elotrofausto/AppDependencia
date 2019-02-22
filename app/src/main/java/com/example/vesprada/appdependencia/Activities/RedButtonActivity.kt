@@ -2,7 +2,6 @@ package com.example.vesprada.appdependencia.Activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ActivityManager
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
@@ -21,7 +20,6 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Toast
-import com.example.vesprada.appdependencia.Background.PanicButton
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
 import kotlinx.android.synthetic.main.activity_red_button.*
