@@ -14,4 +14,5 @@
     <color name="white">#ffffff</color>
     <color name="grey">#646464</color>
     <color name="red">#ff0008</color>
+    <color name="azul_transparente">#440b99da</color>
 </resources>

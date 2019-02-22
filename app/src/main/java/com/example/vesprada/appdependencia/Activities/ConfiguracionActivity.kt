@@ -147,6 +147,7 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         if(b){
             (etPasswd.parent as ConstraintLayout).background = getDrawable(R.drawable.patternbg)
             cambiarColorLetra(R.color.black_as_my_soul)
+            ed_dniDependiente.tag="Night"
         } else {
             //conflayout.setBackgroundResource(R.drawable.patternbg_dark)
             //findViewById<ConstraintLayout>(R.id.parentContainerConf).background = getDrawable(R.drawable.patternbg_dark)
@@ -255,10 +256,9 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_day_night_mode->{
                 //comprueba que no le haya dado antes a editar
-
                 val editor = sharedPreferences.edit()
 
-                editor.putBoolean(DAYNIGHT, !sharedPreferences.getBoolean(DAYNIGHT, false))
+                editor.putBoolean(DAYNIGHT, !sharedPreferences.getBoolean(DAYNIGHT, true))
                 editor.commit()
 
                 cambiarModoNocturnoDiurno(sharedPreferences.getBoolean(DAYNIGHT, true))

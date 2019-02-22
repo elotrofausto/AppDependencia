@@ -8,7 +8,25 @@ import android.widget.SeekBar
 import android.widget.Toast
 import com.example.vesprada.appdependencia.R
 
-class ActivityLlamada : AppCompatActivity() {
+class ActivityLlamada : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
+
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+        if(progress==0){
+            Toast.makeText(this, getString(R.string.llamadaCancelada), Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+    }
 
     lateinit var barra : SeekBar
 
@@ -18,9 +36,22 @@ class ActivityLlamada : AppCompatActivity() {
 
         setUI()
 
-        esperar(5000)
-        Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_LONG).show()
+        //esperar(5000)
+        //Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_LONG).show()
 
+
+    }
+
+    private fun setUI() {
+        barra = findViewById(R.id.barraCancelar)
+
+        /*
+        *
+        * LISTENER A AÑADIR
+        *
+        * */
+
+        barra.setOnSeekBarChangeListener(this)
     }
 
     private fun esperar(i: Long) {
@@ -53,7 +84,6 @@ class ActivityLlamada : AppCompatActivity() {
 
     }
 
-    private fun setUI() {
-        barra = findViewById(R.id.barraCancelar)
-    }
+
 }
+

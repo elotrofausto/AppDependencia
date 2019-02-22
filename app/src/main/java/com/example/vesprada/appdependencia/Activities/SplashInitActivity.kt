@@ -83,6 +83,7 @@ class SplashInitActivity : AppCompatActivity() {
                 println("oops! No hay conexión a la base de datos, se va a iniciar en modo sin conexión")
                 val intent = Intent(context, OfflineRedButtonActivity::class.java)
                 context.startActivity(intent)
+                (context as Activity).finish()
             }
 
             return correctLogin
