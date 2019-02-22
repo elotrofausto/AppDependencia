@@ -30,7 +30,7 @@ class SplashInitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initsplash)
-
+        createChannel()
         comprobarInicio()
     }
 
@@ -45,6 +45,21 @@ class SplashInitActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    fun createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_id_channel)
+            val description = getString(R.string.notification_id_channel)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(getString(R.string.notification_id_channel), name, importance)
+            channel.description = description
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
+        }
+
     }
 
     //static class for AsyncTask
@@ -101,8 +116,8 @@ class SplashInitActivity : AppCompatActivity() {
                 (context as Activity).finish()
             } else {
                 Toast.makeText(context, "ERROR DE AUTENTICACIÖN", Toast.LENGTH_LONG).show()
-                lanzarLoginActivity()
-                (context as Activity).finish()
+                val intent = Intent(context, LoginActivity::class.java)
+                context.startActivity(intent)
             }
         }
 
@@ -116,12 +131,9 @@ class SplashInitActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        private fun lanzarLoginActivity(){
-            val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
-        }
 
     }
+
 
 }
 

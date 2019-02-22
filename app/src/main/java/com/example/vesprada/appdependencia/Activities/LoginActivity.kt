@@ -72,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
         private val MYPREFS = "MyPrefs"
         private lateinit var rs: ResultSet
         var correctLogin: Boolean = false
+        val stsql = "SELECT id FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
 
         init {
             this.correctLogin = false
@@ -82,7 +83,6 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val instance = PostgresDBConnection.getInstance()
                 val conn = instance.connection
-                val stsql = "SELECT id FROM x_dependiente_model where persona_id = (SELECT id FROM x_persona_model where dni = '$user') AND password ='$pass'"
                 val st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)
                 rs = st.executeQuery(stsql)
                 correctLogin = rs.isBeforeFirst
@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                 println("oops! No se puede conectar. Error: " + se.toString())
             } catch (e: ClassNotFoundException) {
                 println("oops! No se encuentra la clase. Error: " + e.message)
-            }catch (e: RuntimeException){
+            }catch (e: Exception){
                 println("oops! No hay conexión a la base de datos, se va a iniciar en modo sin conexión")
                 val intent = Intent(context, OfflineRedButtonActivity::class.java)
                 context.startActivity(intent)

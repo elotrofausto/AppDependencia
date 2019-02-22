@@ -14,6 +14,8 @@ import com.example.vesprada.appdependencia.R
 class SplashLoadingActivity : AppCompatActivity() {
 
     private val JOB_ID = 0;
+    private val LATENCY: Long = 1000
+    private val PERIOD_MS: Long = 1000 * 60 * 15
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,8 @@ class SplashLoadingActivity : AppCompatActivity() {
         jobScheduler.schedule(JobInfo.Builder(JOB_ID,
                 ComponentName(this, SyncService::class.java!!))
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true)
+                .setMinimumLatency(LATENCY)
                 .build())
     }
 }

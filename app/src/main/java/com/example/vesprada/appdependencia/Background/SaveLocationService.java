@@ -14,6 +14,7 @@ public class SaveLocationService extends JobService {
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
+    private final static int PERIOD_MS = 1000 * 60 * 10;
 
     @Override
     public boolean onStartJob(JobParameters params) {
@@ -47,8 +48,8 @@ public class SaveLocationService extends JobService {
 
     private LocationRequest getLocationRequest(){
         LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(1000 * 60 * 3);
+        locationRequest.setInterval(PERIOD_MS);
+        locationRequest.setFastestInterval(PERIOD_MS - 120000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return locationRequest;
     }
