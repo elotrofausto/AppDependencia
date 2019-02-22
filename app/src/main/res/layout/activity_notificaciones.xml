@@ -182,7 +182,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/tvNotifications"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lyCurrentTask"
         app:layout_constraintEnd_toStartOf="@+id/toggleHistButton"
