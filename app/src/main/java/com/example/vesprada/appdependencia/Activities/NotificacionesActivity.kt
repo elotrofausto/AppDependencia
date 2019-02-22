@@ -20,6 +20,7 @@ import com.example.vesprada.appdependencia.DB.DependenciaDBContract
 import com.example.vesprada.appdependencia.DB.DependenciaDBManager
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
 
@@ -92,7 +93,8 @@ class NotificacionesActivity : AppCompatActivity() {
     fun onClickBotonRojo(v: View){
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        startActivity(intent)
+        var createIntent = CreateIntent(this, intent, "botonRojo")
+        createIntent.lanzarActivity()
     }
 
     fun onToggleClick(v: View)

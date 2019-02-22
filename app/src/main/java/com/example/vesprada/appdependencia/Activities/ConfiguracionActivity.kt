@@ -19,6 +19,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
@@ -95,8 +96,8 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         fab.setOnClickListener { view ->
             var intent = Intent(this, ActivityLlamada::class.java);
-            Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-            startActivity(intent)
+            var createIntent = CreateIntent(this, intent, "botonRojo")
+            createIntent.lanzarActivity()
         }
 
         val toggle = ActionBarDrawerToggle(

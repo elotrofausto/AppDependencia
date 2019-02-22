@@ -22,6 +22,7 @@ import android.view.Window
 import android.widget.Toast
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 import kotlinx.android.synthetic.main.activity_red_button.*
 
 
@@ -114,17 +115,17 @@ class RedButtonActivity : AppCompatActivity() {
             R.id.btnHospital -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "hospital")
             }
             R.id.btnBomberos -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "bomberos")
             }
             R.id.btnPolicia -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "policía")
             }
         }
 
@@ -139,9 +140,9 @@ class RedButtonActivity : AppCompatActivity() {
     }
 
     fun onClickBotonRojo(v: View){
-            var intent = Intent(this, ActivityLlamada::class.java);
-            Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-            startActivity(intent)
+        var intent = Intent(this, ActivityLlamada::class.java);
+        Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
+        var createIntent = CreateIntent(this, intent, "botonRojo")
 
     }
 

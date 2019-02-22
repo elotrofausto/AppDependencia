@@ -12,9 +12,12 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -59,6 +62,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             findViewById<ConstraintLayout>(R.id.mapLayout).background = getDrawable(R.drawable.patternbg_dark)
         }
 
+    }
+
+    fun onClickBotonRojo(v: View){
+        var intent = Intent(this, ActivityLlamada::class.java);
+        Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
+        var createIntent = CreateIntent(this, intent, "botonRojo")
+        createIntent.lanzarActivity()
     }
 
     /**

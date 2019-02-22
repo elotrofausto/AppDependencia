@@ -23,6 +23,7 @@ import com.example.vesprada.appdependencia.Models.XGeoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.R.id.tvDate
 import com.example.vesprada.appdependencia.R.id.tvDescripcion
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 import kotlinx.android.synthetic.main.activity_historial.*
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
@@ -100,7 +101,8 @@ class HistorialActivity : AppCompatActivity(){
     fun onClickBotonRojo(v: View){
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        startActivity(intent)
+        var createIntent = CreateIntent(this, intent, "botonRojo")
+        createIntent.lanzarActivity()
     }
 
     fun onToggleClick(v: View)

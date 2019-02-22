@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizado
 import com.example.vesprada.appdependencia.R
+import com.example.vesprada.appdependencia.Utils.CreateIntent
 
 class OfflineRedButtonActivity : AppCompatActivity() {
 
@@ -32,17 +33,20 @@ class OfflineRedButtonActivity : AppCompatActivity() {
             R.id.btnHospital -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "hospital")
+                createIntent.lanzarActivity()
             }
             R.id.btnBomberos -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "bomberos")
+                createIntent.lanzarActivity()
             }
             R.id.btnPolicia -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
-                startActivity(intent)
+                var createIntent = CreateIntent(this, intent, "policía")
+                createIntent.lanzarActivity()
             }
         }
 
@@ -55,7 +59,8 @@ class OfflineRedButtonActivity : AppCompatActivity() {
 
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        startActivity(intent)
+        var createIntent = CreateIntent(this, intent, "botonRojo")
+        createIntent.lanzarActivity()
 
     }
 }
