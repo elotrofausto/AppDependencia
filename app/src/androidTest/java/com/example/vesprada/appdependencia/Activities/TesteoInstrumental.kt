@@ -29,7 +29,10 @@ import android.widget.TextView
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class LogInTest {
+class TesteoInstrumental {
+
+    //NOTA IMPORTANTE: PARA REALIZAR EL TESTEO EL ARCHIVO SHARED PREFERENCES NO PUEDE EXISTIR,
+    // eYA QUE SI EXISTE LA LoginActivity NO SE LANZA Y POR LO TANTO NO SE PUEDE PROBAR
 
     @Rule
     @JvmField
