@@ -2,7 +2,6 @@ package com.example.vesprada.appdependencia.Background;
 
 import android.app.ActivityManager;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 import com.example.vesprada.appdependencia.Activities.SplashLoadingActivity;
@@ -52,7 +50,9 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
         try {
             PostgresDBConnection instance = PostgresDBConnection.getInstance();
             Connection conn = instance.getConnection();
+            //Primero actualizamos los avisos finalizados desde nuestra SQlite a Postgres Server
             SQLiteToServer(conn);
+            //Inmediatamente traemos los nuevos avisos desde el Server a nuestro SQLite
             pgServerToSQLite(conn);
             conn.close();
         } catch (SQLException se) {
@@ -95,6 +95,7 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
             updatePst.executeUpdate();
         }
         if (!idList.isEmpty() && isAppRunning(context,context.getPackageName())){
+            //Notificamos al usuario de que se han recibido nuevos avisos (solamente si la app no esta activa: isAppRunning)
             sendNotification();
         }
         Log.i(SYNCTAG,"Avisos sincronizados en la base de datos local SQLite");
@@ -126,6 +127,7 @@ public class SyncDBTask extends AsyncTask<Void, Void, Boolean> {
     }
 
     public boolean isAppRunning(final Context context, final String packageName) {
+        //Método para comprobar si la app está corriendo en este momento
         final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         final List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
         if (procInfos != null)

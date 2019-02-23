@@ -22,7 +22,7 @@ import android.view.Window
 import android.widget.Toast
 import com.example.vesprada.appdependencia.Background.SaveLocationService
 import com.example.vesprada.appdependencia.R
-import com.example.vesprada.appdependencia.Utils.CreateIntent
+import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
 import kotlinx.android.synthetic.main.activity_red_button.*
 
 
@@ -115,17 +115,17 @@ class RedButtonActivity : AppCompatActivity() {
             R.id.btnHospital -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
-                var createIntent = CreateIntent(this, intent, "hospital")
+                var createIntent = CreateRedButtonIntent(this, intent, "hospital")
             }
             R.id.btnBomberos -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
-                var createIntent = CreateIntent(this, intent, "bomberos")
+                var createIntent = CreateRedButtonIntent(this, intent, "bomberos")
             }
             R.id.btnPolicia -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
-                var createIntent = CreateIntent(this, intent, "policía")
+                var createIntent = CreateRedButtonIntent(this, intent, "policía")
             }
         }
 
@@ -142,8 +142,8 @@ class RedButtonActivity : AppCompatActivity() {
     fun onClickBotonRojo(v: View){
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        var createIntent = CreateIntent(this, intent, "botonRojo")
-
+        var createIntent = CreateRedButtonIntent(this, intent, "botonRojo")
+        createIntent.lanzarActivity()
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

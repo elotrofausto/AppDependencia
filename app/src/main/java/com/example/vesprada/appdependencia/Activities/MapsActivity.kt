@@ -17,7 +17,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.example.vesprada.appdependencia.R
-import com.example.vesprada.appdependencia.Utils.CreateIntent
+import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -67,7 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     fun onClickBotonRojo(v: View){
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        var createIntent = CreateIntent(this, intent, "botonRojo")
+        var createIntent = CreateRedButtonIntent(this, intent, "botonRojo")
         createIntent.lanzarActivity()
     }
 

@@ -25,9 +25,35 @@ import java.util.*
 
 class ActivityLlamada : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
+    private val TIPOLLAMADA = "tipoLlamada"
+    private val MYPREFS = "MyPrefs"
+    lateinit var barra : SeekBar
+    lateinit var pButton: PanicButtonTask
+    companion object {
+        lateinit var tipo: String
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_llamada)
+        setUI()
+        tipo = intent.extras.getString(TIPOLLAMADA)
+        pButton = PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
+        pButton.execute()
+        Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_LONG).show()
+    }
+
+    private fun setUI() {
+        barra = findViewById(R.id.barraCancelar)
+        barra.setOnSeekBarChangeListener(this)
+    }
+
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         if(progress==0){
             Toast.makeText(this, getString(R.string.llamadaCancelada), Toast.LENGTH_SHORT).show()
+            if (pButton != null && !pButton.isCancelled){
+                pButton.cancel(true)
+            }
             finish()
         }
     }
@@ -37,53 +63,7 @@ class ActivityLlamada : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
-        // Nothing haoppens
-    }
-
-    private val MYPREFS = "MyPrefs"
-    lateinit var barra : SeekBar
-    companion object {
-        lateinit var tipo: String
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_llamada)
-        setUI()
-        //esperar(5000)
-        //tipo = savedInstanceState!!.getString("tipo")
-        var pButton = PanicButtonTask(this, getSharedPreferences(MYPREFS, Context.MODE_PRIVATE))
-        pButton.execute()
-        Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_LONG).show()
-    }
-
-    private fun esperar(i: Long) {
-
-        var handler = Handler()
-        handler.postDelayed(object : Runnable{
-            override fun run(){
-                llamar()
-            }
-        },i)
-
-    }
-
-
-    @SuppressLint("MissingPermission")
-    private fun llamar() {
-
-        if(barra.progress!=0) {
-            Toast.makeText(this, getString(R.string.llamandoEmergencias), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, getString(R.string.llamadaCancelada), Toast.LENGTH_SHORT).show()
-            finish()
-        }
-
-    }
-
-    private fun setUI() {
-        barra = findViewById(R.id.barraCancelar)
-        barra.setOnSeekBarChangeListener(this)
+        // Nothing happens
     }
 
     //    static class for AsyncTask
@@ -103,7 +83,7 @@ class ActivityLlamada : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         override fun doInBackground(vararg params: Void): Boolean? {
 
                 val jsonAlarm = createJson()
-                var result: Boolean = false
+                var result = false
 
             //Si no puede conectar con su asistente asignado prueba con todos los asistentes logueados
                 result = conectarAsignado(jsonAlarm)
@@ -233,13 +213,12 @@ class ActivityLlamada : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         private fun createJson(): JSONObject {
             val jsonAlarm = JSONObject()
             jsonAlarm.accumulate("idDependiente", sharedPreferences.getString(DNI, NONE))
-            jsonAlarm.accumulate("tipo", "alarma")
+            jsonAlarm.accumulate("tipo", tipo)
             jsonAlarm.accumulate("fecha", Date().time)
             return jsonAlarm
         }
 
         companion object {
-
             private val PORT = 4444
             private val TIMEOUT = 35000
             private val DNI = "dni"

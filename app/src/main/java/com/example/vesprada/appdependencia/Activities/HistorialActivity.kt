@@ -21,11 +21,8 @@ import com.example.vesprada.appdependencia.DB.DependenciaDBManager
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.Models.XGeoModel
 import com.example.vesprada.appdependencia.R
-import com.example.vesprada.appdependencia.R.id.tvDate
-import com.example.vesprada.appdependencia.R.id.tvDescripcion
-import com.example.vesprada.appdependencia.Utils.CreateIntent
+import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
 import kotlinx.android.synthetic.main.activity_historial.*
-import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
 
 class HistorialActivity : AppCompatActivity(){
@@ -101,7 +98,7 @@ class HistorialActivity : AppCompatActivity(){
     fun onClickBotonRojo(v: View){
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        var createIntent = CreateIntent(this, intent, "botonRojo")
+        var createIntent = CreateRedButtonIntent(this, intent, "botonRojo")
         createIntent.lanzarActivity()
     }
 
