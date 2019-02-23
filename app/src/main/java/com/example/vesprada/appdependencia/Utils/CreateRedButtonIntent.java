@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class CreateIntent {
+public class CreateRedButtonIntent {
+
+    //Pequeña clase para crear el intennt de la Activity que llama al asistente tras pulsar el botón rojo
+    //Se hace uso del putExtras para indicar el tipo de emergencia
 
     private static final String TIPOLLAMADA = "tipoLlamada";
 
@@ -12,7 +15,7 @@ public class CreateIntent {
     private Intent intent;
     private String tipo;
 
-    public CreateIntent (Context Context, Intent Intent, String Tipo){
+    public CreateRedButtonIntent(Context Context, Intent Intent, String Tipo){
         context=Context;
         intent=Intent;
         tipo=Tipo;

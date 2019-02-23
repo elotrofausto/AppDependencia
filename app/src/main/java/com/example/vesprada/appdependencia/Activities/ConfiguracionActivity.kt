@@ -1,6 +1,5 @@
 package com.example.vesprada.appdependencia.Activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,13 +12,14 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.text.InputType
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import com.example.vesprada.appdependencia.R
-import com.example.vesprada.appdependencia.Utils.CreateIntent
+import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
 import com.example.vesprada.appdependencia.Utils.PdfFromXmlFile
 import kotlinx.android.synthetic.main.activity_configuracion.*
 import kotlinx.android.synthetic.main.app_bar_configuracion.*
@@ -96,7 +96,7 @@ class ConfiguracionActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         fab.setOnClickListener { view ->
             var intent = Intent(this, ActivityLlamada::class.java);
-            var createIntent = CreateIntent(this, intent, "botonRojo")
+            var createIntent = CreateRedButtonIntent(this, intent, "botonRojo")
             createIntent.lanzarActivity()
         }
 

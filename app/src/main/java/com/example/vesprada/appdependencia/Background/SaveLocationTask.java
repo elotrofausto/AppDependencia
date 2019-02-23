@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 public class SaveLocationTask extends AsyncTask<Location, Void, Location> {
-    private final String TAG = SaveLocationTask.class.getSimpleName();
     private final String MYPREFS = "MyPrefs";
     private final String INSERTGEO = "INSERT INTO x_geolocaliz_model(id_dependiente,latitud,longitud,fecha_hora) VALUES(?,?,?,?)";
     private Context mContext;

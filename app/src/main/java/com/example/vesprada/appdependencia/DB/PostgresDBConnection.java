@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class PostgresDBConnection {
 
+    //Se gestiona la conexión a Postgres con esta clase singleton.
     private Connection connection;
     private static PostgresDBConnection instance = new PostgresDBConnection();
 
@@ -33,7 +34,6 @@ public class PostgresDBConnection {
             } else if (instance.getConnection() == null || instance.getConnection().isClosed()) {
                 instance = new PostgresDBConnection();
             }
-
         return instance;
     }
 }

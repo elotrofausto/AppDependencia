@@ -12,6 +12,8 @@ import com.google.android.gms.location.LocationServices;
 
 public class SaveLocationService extends JobService {
 
+    //Servicio para guardar periódicamente la localización del dispositivo en SQLite y PostgreSQL
+
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private final static int PERIOD_MS = 1000 * 60 * 10;
@@ -23,6 +25,7 @@ public class SaveLocationService extends JobService {
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+                //Es una asynctask la que se encarga de hacer el trabajo
                 new SaveLocationTask(SaveLocationService.this)
                         .execute(locationResult.getLastLocation());
             }
@@ -49,7 +52,7 @@ public class SaveLocationService extends JobService {
     private LocationRequest getLocationRequest(){
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(PERIOD_MS);
-        locationRequest.setFastestInterval(PERIOD_MS - 120000);
+        locationRequest.setFastestInterval(PERIOD_MS / 2);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return locationRequest;
     }

@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View
 import com.example.vesprada.appdependencia.Fragments.DialogoPersonalizado
 import com.example.vesprada.appdependencia.R
-import com.example.vesprada.appdependencia.Utils.CreateIntent
+import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
 
 class OfflineRedButtonActivity : AppCompatActivity() {
 
@@ -33,19 +33,19 @@ class OfflineRedButtonActivity : AppCompatActivity() {
             R.id.btnHospital -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
-                var createIntent = CreateIntent(this, intent, "hospital")
+                var createIntent = CreateRedButtonIntent(this, intent, "hospital")
                 createIntent.lanzarActivity()
             }
             R.id.btnBomberos -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
-                var createIntent = CreateIntent(this, intent, "bomberos")
+                var createIntent = CreateRedButtonIntent(this, intent, "bomberos")
                 createIntent.lanzarActivity()
             }
             R.id.btnPolicia -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
-                var createIntent = CreateIntent(this, intent, "policía")
+                var createIntent = CreateRedButtonIntent(this, intent, "policía")
                 createIntent.lanzarActivity()
             }
         }
@@ -59,7 +59,7 @@ class OfflineRedButtonActivity : AppCompatActivity() {
 
         var intent = Intent(this, ActivityLlamada::class.java);
         Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A EMERGENCIAS")
-        var createIntent = CreateIntent(this, intent, "botonRojo")
+        var createIntent = CreateRedButtonIntent(this, intent, "botonRojo")
         createIntent.lanzarActivity()
 
     }
