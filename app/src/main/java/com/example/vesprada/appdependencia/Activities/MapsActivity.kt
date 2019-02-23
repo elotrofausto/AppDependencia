@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
@@ -18,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -27,16 +30,19 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private val REQUESTLOCATIONPERMISSION=1
-    lateinit var markerPoints : ArrayList<LatLng>
+    var markerPoints : ArrayList<LatLng> = ArrayList()
     private val MYPREFS = "MyPrefs"
     private val DAYNIGHT = "dayNight"
     private lateinit var preferences: SharedPreferences
+    private lateinit var lm : LocationManager
+    private lateinit var location : Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,17 +89,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val currentPlace = LatLng(38.691450,-0.496278)
+        //val currentPlace = LatLng(38.691450,-0.496278)
         val zoom=15.0F
 
         enableMyLocation()
+        //mMap.addMarker(MarkerOptions()
+        //        .position(currentPlace)
+        //        .title("Current Place  Pulsa para borrar")
+        //        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
 
-        mMap.addMarker(MarkerOptions()
-                .position(currentPlace)
-                .title("Current Place  Pulsa para borrar")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPlace,zoom))
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPlace,zoom))
+        var longitude = location.getLongitude();
+        var latitude = location.getLatitude();
+        val currentPlace = LatLng(latitude, longitude)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPlace, zoom))
         setMapLongClick(mMap)
         setPoiClick(mMap)
         mMap.setOnInfoWindowClickListener { marker ->
@@ -177,6 +187,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
+            //CODIGO AÑADIDO
+            lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            //AQUI TERMINA EL CODIGO AÑADIDO
         } else {
             ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),REQUESTLOCATIONPERMISSION )
         }

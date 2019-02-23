@@ -64,4 +64,7 @@
     <string name="yesAlert">Si</string>
     <string name="configurationPassword">Contraseña</string>
     <string name="no_hay_ip_asistente">No hay IP del Asistente, por favor introduzca una</string>
+    <string name="notification_id_channel">Nuevas notificaciones</string>
+    <string name="CheckApp">Entra a la aplicación a leer las nuevas notificaciones</string>
+    <string name="NewNotifications">Nuevas notificaciones</string>
 </resources>
