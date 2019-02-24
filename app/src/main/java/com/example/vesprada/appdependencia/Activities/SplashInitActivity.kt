@@ -121,6 +121,7 @@ class SplashInitActivity : AppCompatActivity() {
                 Toast.makeText(context, "ERROR DE AUTENTICACIÖN", Toast.LENGTH_LONG).show()
                 val intent = Intent(context, LoginActivity::class.java)
                 context.startActivity(intent)
+                (context as Activity).finish()
             }
         }
 
