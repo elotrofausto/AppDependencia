@@ -9,6 +9,7 @@ public class SyncService extends JobService {
 
     private static final String MYPREFS = "MyPrefs";
     private static final String DNI = "dni";
+    private static final String PASS = "passwd";
     private static final String NONE = "none";
 
     @Override
@@ -18,7 +19,7 @@ public class SyncService extends JobService {
 
         Log.i("SYNCJOB:","JOB STARTED");
         //Iniciamos una AsyncTask que sincroniza los datos de nuestra SQLite con los del servidor Postgres
-        SyncDBTask sync = new SyncDBTask("28888810k","1234", this);
+        SyncDBTask sync = new SyncDBTask(myPreferences.getString(DNI,NONE),myPreferences.getString(PASS,NONE), this);
         sync.execute();
 
         return true;
