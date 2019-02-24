@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
@@ -22,6 +23,7 @@ import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.Models.XGeoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
+import com.example.vesprada.appdependencia.Utils.Utils
 import kotlinx.android.synthetic.main.activity_historial.*
 import java.util.*
 
@@ -72,8 +74,15 @@ class HistorialActivity : AppCompatActivity(){
     private fun cargarPrimeraTarea() {
         if (!listaTareas.isEmpty()){
             if (!listaTareas.isEmpty()){
-                findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name
-                findViewById<TextView>(R.id.tvDate).text = listaTareas.get(0).fecDesde.toString()
+                findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name + "\n" + listaTareas.get(0).periodicidad
+                findViewById<TextView>(R.id.tvDate).text = Utils.trasformDate(listaTareas.get(0).fecDesde)
+
+                when (listaTareas.get(0).tipo){
+                    "medicinas" ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medicine)
+                    "medico" ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medico)
+                    else ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_otras_citas)
+                }
+
                 currentId = Integer(listaTareas.get(0).id)
                 if (!findViewById<ToggleButton>(R.id.toggleHistButton).isChecked){
                     findViewById<Button>(R.id.btUndone).visibility = View.VISIBLE
@@ -83,6 +92,7 @@ class HistorialActivity : AppCompatActivity(){
             findViewById<TextView>(R.id.tvDescripcion).text = getString(R.string.EmptyHistory)
             findViewById<TextView>(R.id.tvDate).text = getString(R.string.keepComing)
             findViewById<Button>(R.id.btUndone).visibility = View.INVISIBLE
+            findViewById<ImageView>(R.id.ivCurrentIcon).background=null
         }
     }
 

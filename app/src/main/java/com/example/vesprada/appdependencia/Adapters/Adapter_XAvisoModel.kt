@@ -64,8 +64,8 @@ class Adapter_XAvisoModel(context: Context, avisoList: ArrayList<XAvisoModel>, r
         //Guardamos el id del aviso seleccionado en una variable estática para su posterior uso
         NotificacionesActivity.currentId = Integer(item.id)
         HistorialActivity.currentId = Integer(item.id)
-        Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
-        selectedItemView.findViewById<TextView>(R.id.tvDescripcion).text = item.name
+        //Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
+        selectedItemView.findViewById<TextView>(R.id.tvDescripcion).text = item.name + "\n" + item.periodicidad
         when (item.tipo){
             "medicinas" ->  selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medicine)
             "medico" ->  selectedItemView.findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medico)

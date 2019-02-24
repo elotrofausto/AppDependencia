@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.example.vesprada.appdependencia.Adapters.Adapter_XAvisoModel
@@ -21,6 +22,7 @@ import com.example.vesprada.appdependencia.DB.DependenciaDBManager
 import com.example.vesprada.appdependencia.Models.XAvisoModel
 import com.example.vesprada.appdependencia.R
 import com.example.vesprada.appdependencia.Utils.CreateRedButtonIntent
+import com.example.vesprada.appdependencia.Utils.Utils
 import kotlinx.android.synthetic.main.activity_red_button.*
 import java.util.*
 
@@ -61,14 +63,22 @@ class NotificacionesActivity : AppCompatActivity() {
         if (!listaTareas.isEmpty()){
             if (!listaTareas.isEmpty()){
                 currentId = Integer(listaTareas.get(0).id)
-                findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name
-                findViewById<TextView>(R.id.tvDate).text = listaTareas.get(0).fecDesde.toString()
+                findViewById<TextView>(R.id.tvDescripcion).text = listaTareas.get(0).name + "\n" + listaTareas.get(0).periodicidad
+                findViewById<TextView>(R.id.tvDate).text = Utils.trasformDate(listaTareas.get(0).fecDesde)
                 findViewById<Button>(R.id.button).visibility = View.VISIBLE
+
+                when (listaTareas.get(0).tipo){
+                    "medicinas" ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medicine)
+                    "medico" ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_medico)
+                    else ->  findViewById<ImageView>(R.id.ivCurrentIcon).setBackgroundResource(R.drawable.ic_otras_citas)
+                }
+                //listaTareas.get(0).fecDesde.toString()
             }
         }else{
             findViewById<TextView>(R.id.tvDescripcion).text = getString(R.string.noNotifications)
             findViewById<TextView>(R.id.tvDate).text = getString(R.string.keepComing)
             findViewById<Button>(R.id.button).visibility = View.INVISIBLE
+            findViewById<ImageView>(R.id.ivCurrentIcon).background=null
         }
     }
 
