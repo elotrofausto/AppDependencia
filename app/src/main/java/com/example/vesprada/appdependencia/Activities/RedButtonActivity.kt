@@ -116,16 +116,19 @@ class RedButtonActivity : AppCompatActivity() {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO AL HOSPITAL")
                 var createIntent = CreateRedButtonIntent(this, intent, "hospital")
+                createIntent.lanzarActivity()
             }
             R.id.btnBomberos -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LOS BOMBEROS")
                 var createIntent = CreateRedButtonIntent(this, intent, "bomberos")
+                createIntent.lanzarActivity()
             }
             R.id.btnPolicia -> {
                 var intent = Intent(this, ActivityLlamada::class.java);
                 Log.i("LLAMANDO: ", "SE ESTA LLAMANDO A LA POLICÍA")
                 var createIntent = CreateRedButtonIntent(this, intent, "policía")
+                createIntent.lanzarActivity()
             }
         }
 
